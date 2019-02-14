@@ -1,6 +1,10 @@
-# subway-routine
+# subway-routine 东京首尔曼谷新加坡巴黎地铁线路
 
-> subway routine helper
+提供全球主要城市地铁线路图，包括北京上海广州深圳香港台北武汉天津重庆成都杭州大连青岛苏州南京新加坡东京首尔曼谷巴黎伦敦纽约等等。
+
+![小程序码](https://i.loli.net/2019/02/14/5c654bbce124c.jpg)
+
+![小程序二维码](https://i.loli.net/2019/02/14/5c654be53c85b.jpg)
 
 ## Build Setup
 
