@@ -1,0 +1,12 @@
+{
+  "pages": [
+    "pages/citylist/main",
+    "pages/userguide/main"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#eee",
+    "navigationBarTitleText": "全球地铁线路图",
+    "navigationBarTextStyle": "black"
+  }
+}

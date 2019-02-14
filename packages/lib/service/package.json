@@ -1,0 +1,19 @@
+{
+  "name": "service",
+  "version": "1.0.0",
+  "author": "duanlian <duanlian1@wps.cn>",
+  "main": "index.js",
+  "private": true,
+  "engines": {
+    "node": ">= 4.0.0",
+    "npm": ">= 3.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ],
+  "dependencies": {
+    "lodash": "^4.17.10"
+  }
+}
