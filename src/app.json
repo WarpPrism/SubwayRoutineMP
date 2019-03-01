@@ -2,7 +2,6 @@
   "pages": [
     "pages/citylist/main",
     "pages/citydetail/main",
-    "pages/citywiki/main",
     "pages/userguide/main"
   ],
   "window": {
