@@ -3,9 +3,12 @@
 @wxGreenPress: #2ba245;
 @wxBlue: #10AEFF;
 @wxBlue1: #2782D7;
+@wxRed: #d84e43;
 .page-container { background: #eee; overflow: scroll; padding: 30rpx 50rpx;
   .title { text-align: center; font-size: 50rpx; margin: 0 0 20rpx; }
-  .info { margin-bottom: 20rpx; }
+  .info { margin-bottom: 20rpx;
+    .empha { color: @wxRed; }
+  }
   .feadback-btn { width: 100%; margin: 50rpx auto; background: @wxBlue1; }
   .button-hover[type=primary] {
     opacity: 0.8;
@@ -16,8 +19,8 @@
 <template>
   <div class="page-container">
     <h2 class="title">使用指南</h2>
-    <p class="info">本程序提供全国主要城市的地铁线路图预览，点击城市打开预览图，待预览图加载完毕后，可使用手指进行缩放。</p>
-    <p class="info">目前支持的国内城市有：北京、上海、深圳、广州、武汉、成都、重庆、天津、青岛、大连、南京、苏州、杭州、郑州、香港、台北等。<br/>支持的国外城市有：东京、伦敦、纽约、首尔、新加坡等。</p>
+    <p class="info">本程序提供全球主要城市的地铁线路图预览，点击城市打开预览图，待预览图加载完毕后，可使用手指进行缩放。</p>
+    <p class="info">目前支持的国内城市有：<span class="empha">北京、上海、深圳、广州、武汉、成都、重庆、天津、青岛、大连、南京、苏州、杭州、郑州、香港、台北</span>等。<br/>支持的国外城市有：<span class="empha">东京、伦敦、纽约、首尔、新加坡、曼谷、大阪、莫斯科、迪拜、伊斯坦布尔</span>等。</p>
     <p class="info">如果您觉得小程序对您有帮助，可以点击右上角转发给好友哦~</p>
     <h2 class="title">免责声明</h2>
 

@@ -3,9 +3,10 @@
 @wxGreenPress: #2ba245;
 @wxBlue: #10AEFF;
 @wxBlue1: #2782D7;
-.page-container { background: #eee; overflow: scroll;
+@wxRed: #d84e43;
+.page-container { background: #eee; overflow: scroll; -webkit-overflow-scrolling: touch;
   .banner { display: block; width: calc(750rpx - 114rpx); height: 250rpx; margin: 0 auto; }
-  .share-guide { width: calc(750rpx - 114rpx); margin: 0 auto 20rpx; color: #666; font-size: 25rpx; }
+  .share-guide { width: calc(750rpx - 114rpx); margin: 0 auto 20rpx; color: @wxBlue1; font-size: 26rpx; }
   .search-section { width: 100%; margin: 0 0 15rpx; padding: 0 37rpx; position: relative;
     .search-input { display: inline-block; width: 520rpx; height: 61rpx; padding: 5rpx 20rpx; background: #fff; box-sizing: border-box; }
     .search-btn { width: 100rpx; height: 61rpx; text-align: center; line-height: 58rpx; position: absolute; right: 37rpx; top: 0; background: @wxBlue1; color: #fff; border-radius: 5rpx; box-sizing: border-box;
@@ -14,39 +15,45 @@
   }
   scroll-view.cities-wrap { width: 100%; height: 1050rpx; }
 
-  .section-title { text-align: center; font-size: 36rpx; font-weight: bold; margin: 20rpx auto; letter-spacing: 2rpx; }
+  .section-title { width: calc(750rpx - 114rpx); text-align: center; font-size: 38rpx; margin: 20rpx auto; padding: 15rpx 0; letter-spacing: 2rpx;  background-image: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%); color: #fefefe; }
+  .section-title.title1 { background-image: linear-gradient(to right, #b8cbb8 0%, #b8cbb8 0%, #b465da 0%, #cf6cc9 33%, #ee609c 66%, #ee609c 100%); }
+
+  .empty-info { width: calc(750rpx - 114rpx); height: 300rpx; line-height: 300rpx; text-align: center; font-size: 32rpx; margin: 20rpx auto; }
 
   .read-user-guide { width: calc(750rpx - 114rpx); margin: auto; color: @wxBlue1; }
 
   .bottom-btn { width: calc(750rpx - 114rpx); margin: 25rpx auto; background: @wxBlue1; }
   .button-hover[type=primary] {
-    opacity: 0.8;
+    opacity: 0.85;
   }
 }
 </style>
 
 <template>
-  <div class="page-container">
+  <div class="page-container page-citylist">
+    <!-- <img class="preload" :src="preloadSrc" @load="imageOnLoad" @error="imageOnLoadError" > -->
+
     <!-- <img :src="bannerUrl" alt="" class="banner"> -->
-    <p class="share-guide">如果觉得小程序对您有帮助，可以转发给好友哦~</p>
+    <p class="share-guide">如果觉得小程序对您有帮助，可以转发给好友哦👆</p>
     <div class="search-section">
       <input
         class="search-input"
         type="text"
-        placeholder="输入您所在的城市，如London"
+        placeholder="输入您所在的城市，如北京"
         maxlength="35"
         @input="handleSearchInput"
       />
-      <div class="search-btn" @tap="clickSearchBtn">搜索</div>
+      <div class="search-btn" @tap="clickSearchBtn">定位</div>
     </div>
     <!-- <scroll-view scroll-y="" class="cities-wrap"></scroll-view> -->
-    <div class="section-title" v-if="WorldCities.length > 0">国际城市</div>
-    <CityCard v-for="city in WorldCities" :key="city.id" :instance="city"></CityCard>
 
-    <div class="section-title" v-if="ChinaCities.length > 0">国内城市</div>
+    <div class="section-title title1" v-if="ChinaCities.length > 0">国内城市</div>
     <CityCard v-for="city in ChinaCities" :key="city.id" :instance="city"></CityCard>
 
-    <div class="section-title" v-if="ChinaCities.length <= 0 && WorldCities.length <= 0">暂无结果</div>
+    <div class="section-title t2" v-if="WorldCities.length > 0">国际城市</div>
+    <CityCard v-for="city in WorldCities" :key="city.id" :instance="city"></CityCard>
+
+    <div class="empty-info" v-if="ChinaCities.length <= 0 && WorldCities.length <= 0">暂无您要找的城市🤔</div>
 
 
     <div class="read-user-guide" @tap="readUserGuide">《用户使用指南及反馈》</div>
@@ -67,14 +74,22 @@ export default {
   data() {
     return {
       // bannerUrl: require('../../assets/images/banner.jpg'),
+      preloadSrc: '',
       allCities: config.allCities || [],
       ChinaCities: [],
       WorldCities: []
     }
   },
   computed: {},
+  onShow() {
+    wx.reportAnalytics('showhome', {})
+  },
   mounted() {
     this.resetCities()
+    // 打印城市名
+    // this.allCities.forEach(c => {
+    //   console.log(c.name_zh);
+    // })
   },
   onShareAppMessage (options) {
     var that = this
@@ -85,6 +100,18 @@ export default {
     }
   },
   methods: {
+    // 预加载主要城市地铁图
+    // preloadMainCityImg() {
+    //   this.allCities.forEach(c => {
+    //     this.preloadSrc = c.subway_img
+    //   })
+    // },
+    // imageOnLoad(ev) {
+    //   console.log(`图片加载成功，width: ${ev.mp.detail.width}; height: ${ev.mp.detail.height}`)
+    // },
+    // imageOnLoadError() {
+    //   console.log('图片加载失败')
+    // },
     resetCities() {
       this.ChinaCities = this.allCities.filter(city => {
         return city && !city.isForeignCity
@@ -95,7 +122,7 @@ export default {
     },
     handleSearchInput(e) {
       let value = e.mp.detail.value
-      value = value.toLowerCase()
+      value = value.trim().toLowerCase()
       if (!value || value == '') {
         this.resetCities()
         return
@@ -123,17 +150,18 @@ export default {
           title: '对不起，找不到相关城市信息',
           mask: true,
           icon: 'none',
-          duration: 2000
+          duration: 1000
         })
       }
     },
     // 点击收藏小程序
     clickStarMp() {
+      wx.reportAnalytics('click_star_mp', {});
       wx.showToast({
         title: `请点击右上角...菜单按钮，然后选择添加到我的小程序`,
         mask: true,
         icon: 'none',
-        duration: 2500
+        duration: 2000
       })
     },
     // 跳转到用户指引

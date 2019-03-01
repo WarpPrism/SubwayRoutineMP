@@ -1,5 +1,8 @@
 // SM.MS 图床地址
-const SMMS_IMG_BED_BASE = 'https://i.loli.net/'
+const SMMS = 'https://i.loli.net/'
+const WEIBO = 'https://ws1.sinaimg.cn/large/e3e8443agy1g0l7tspbk7j216x113jt4.jpg'
+
+const IMG_BED_BASE = SMMS
 
 // 地铁logo
 // http://mic-ro.com/metro/metrologos.html?metrolike=yes&clones=yes&size=lg&sort=country
@@ -37,14 +40,22 @@ http://www.izuoche.com/ditie/
 https://www.visitsingapore.com.cn/travel-guide-tips/getting-around/tourist-guide-maps-apps/
 <img src="https://i.loli.net/2019/02/13/5c643c57925fc.jpeg" alt="bangkok.jpeg" title="bangkok.jpeg" />
 <img src="https://i.loli.net/2019/02/13/5c643e17c00d3.gif" alt="paris.gif" title="paris.gif" />
+
+<img src="https://i.loli.net/2019/02/15/5c663112c6812.jpg" alt="Moscow.jpg" title="Moscow.jpg" />
+https://www.russia-online.cn/CityGuide/cmetro_1.shtml
+<img src="https://i.loli.net/2019/02/15/5c6634d26f7c3.jpg" alt="dubai.jpg" title="dubai.jpg" />
+https://www.dubaitourism.cn/
+<img src="https://i.loli.net/2019/02/15/5c6659e52a015.png" alt="Istanbul.png" title="Istanbul.png" />
+<img src="https://i.loli.net/2019/02/15/5c665ed1573d1.gif" alt="osaka.gif" title="osaka.gif" />
+<img src="https://i.loli.net/2019/02/15/5c66641f768d0.png" alt="Kuala Lumpur.png" title="Kuala Lumpur.png" />
 \******************************************************************************************************************/
 
-export default [
+let cities = [
   {
     id: 3001,
     name_zh: '东京',
     name_en: 'Tokyo',
-    subway_img: SMMS_IMG_BED_BASE + '2019/02/13/5c63dafb9fc7c.jpg',
+    subway_img: IMG_BED_BASE + '2019/02/13/5c63dafb9fc7c.jpg',
     subway_logo: require('../assets/images/logo/tokyo.png'),
     city_picture: '',
     isForeignCity: true
@@ -53,7 +64,7 @@ export default [
     id: 3002,
     name_zh: '伦敦',
     name_en: 'London',
-    subway_img: SMMS_IMG_BED_BASE + '2019/02/13/5c63dc04ab500.gif',
+    subway_img: IMG_BED_BASE + '2019/02/13/5c63dc04ab500.gif',
     subway_logo: require('../assets/images/logo/london.png'),
     city_picture: '',
     isForeignCity: true
@@ -62,7 +73,7 @@ export default [
     id: 3003,
     name_zh: '巴黎',
     name_en: 'Paris',
-    subway_img: SMMS_IMG_BED_BASE + '2019/02/13/5c643e17c00d3.gif',
+    subway_img: IMG_BED_BASE + '2019/02/13/5c643e17c00d3.gif',
     subway_logo: require('../assets/images/logo/paris.png'),
     city_picture: '',
     isForeignCity: true
@@ -71,7 +82,7 @@ export default [
     id: 3004,
     name_zh: '纽约',
     name_en: 'NewYork',
-    subway_img: SMMS_IMG_BED_BASE + '2019/02/13/5c63ddb5bb5ab.gif',
+    subway_img: IMG_BED_BASE + '2019/02/13/5c63ddb5bb5ab.gif',
     subway_logo: require('../assets/images/logo/newyork.png'),
     city_picture: '',
     isForeignCity: true
@@ -80,7 +91,7 @@ export default [
     id: 3005,
     name_zh: '首尔',
     name_en: 'Seoul',
-    subway_img: SMMS_IMG_BED_BASE + '2019/02/13/5c63e082cc891.jpg',
+    subway_img: IMG_BED_BASE + '2019/02/13/5c63e082cc891.jpg',
     subway_logo: require('../assets/images/logo/seoul.png'),
     city_picture: '',
     isForeignCity: true
@@ -89,7 +100,7 @@ export default [
     id: 3006,
     name_zh: '新加坡',
     name_en: 'Singapore',
-    subway_img: SMMS_IMG_BED_BASE + '2019/02/13/5c63efc606a41.jpg',
+    subway_img: IMG_BED_BASE + '2019/02/13/5c63efc606a41.jpg',
     subway_logo: require('../assets/images/logo/singapore.png'),
     city_picture: '',
     isForeignCity: true
@@ -98,8 +109,53 @@ export default [
     id: 3007,
     name_zh: '曼谷',
     name_en: 'Bangkok',
-    subway_img: SMMS_IMG_BED_BASE + '2019/02/13/5c643c57925fc.jpeg',
+    subway_img: IMG_BED_BASE + '2019/02/13/5c643c57925fc.jpeg',
     subway_logo: require('../assets/images/logo/bangkok.png'),
+    city_picture: '',
+    isForeignCity: true
+  },
+  {
+    id: 3008,
+    name_zh: '吉隆坡',
+    name_en: 'Kuala Lumpur',
+    subway_img: IMG_BED_BASE + '2019/02/15/5c66641f768d0.png',
+    subway_logo: require('../assets/images/logo/kuala-lumpur.png'),
+    city_picture: '',
+    isForeignCity: true
+  },
+  {
+    id: 3009,
+    name_zh: '莫斯科',
+    name_en: 'Moscow',
+    subway_img: IMG_BED_BASE + '2019/02/15/5c663112c6812.jpg',
+    subway_logo: require('../assets/images/logo/moscow.png'),
+    city_picture: '',
+    isForeignCity: true
+  },
+  {
+    id: 3010,
+    name_zh: '迪拜',
+    name_en: 'Dubai',
+    subway_img: IMG_BED_BASE + '2019/02/15/5c6634d26f7c3.jpg',
+    subway_logo: require('../assets/images/logo/dubai.png'),
+    city_picture: '',
+    isForeignCity: true
+  },
+  {
+    id: 3011,
+    name_zh: '伊斯坦布尔',
+    name_en: 'Istanbul',
+    subway_img: IMG_BED_BASE + '2019/02/15/5c6659e52a015.png',
+    subway_logo: require('../assets/images/logo/istanbul.png'),
+    city_picture: '',
+    isForeignCity: true
+  },
+  {
+    id: 3012,
+    name_zh: '大阪',
+    name_en: 'Osaka',
+    subway_img: IMG_BED_BASE + '2019/02/15/5c665ed1573d1.gif',
+    subway_logo: require('../assets/images/logo/osaka.png'),
     city_picture: '',
     isForeignCity: true
   },
@@ -107,7 +163,7 @@ export default [
     id: 1,
     name_zh: '北京',
     name_en: 'Beijing',
-    subway_img: SMMS_IMG_BED_BASE + '2019/02/01/5c54066098040.jpg',
+    subway_img: IMG_BED_BASE + '2019/02/01/5c54066098040.jpg',
     subway_logo: require('../assets/images/logo/beijing.png'),
     city_picture: ''
   },
@@ -115,7 +171,7 @@ export default [
     id: 2,
     name_zh: '上海',
     name_en: 'Shanghai',
-    subway_img: SMMS_IMG_BED_BASE + '2019/02/01/5c54065c323cf.jpg',
+    subway_img: IMG_BED_BASE + '2019/02/01/5c54065c323cf.jpg',
     subway_logo: require('../assets/images/logo/shanghai.png'),
     city_picture: ''
   },
@@ -123,7 +179,7 @@ export default [
     id: 3,
     name_zh: '广州',
     name_en: 'Canton',
-    subway_img: SMMS_IMG_BED_BASE + '2019/02/01/5c54065f25892.jpg',
+    subway_img: IMG_BED_BASE + '2019/02/01/5c54065f25892.jpg',
     subway_logo: require('../assets/images/logo/canton.png'),
     city_picture: ''
   },
@@ -131,7 +187,7 @@ export default [
     id: 4,
     name_zh: '深圳',
     name_en: 'Shenzhen',
-    subway_img: SMMS_IMG_BED_BASE + '2019/02/01/5c54065ebf07a.jpg',
+    subway_img: IMG_BED_BASE + '2019/02/01/5c54065ebf07a.jpg',
     subway_logo: require('../assets/images/logo/shenzhen.png'),
     city_picture: ''
   },
@@ -139,7 +195,7 @@ export default [
     id: 5,
     name_zh: '香港',
     name_en: 'Hong Kong',
-    subway_img: SMMS_IMG_BED_BASE + '2019/02/01/5c541675955a0.jpg',
+    subway_img: IMG_BED_BASE + '2019/02/01/5c541675955a0.jpg',
     subway_logo: require('../assets/images/logo/hongkong.png'),
     city_picture: ''
   },
@@ -147,7 +203,7 @@ export default [
     id: 6,
     name_zh: '南京',
     name_en: 'Nanjing',
-    subway_img: SMMS_IMG_BED_BASE + '2019/02/01/5c5419a56753c.jpg',
+    subway_img: IMG_BED_BASE + '2019/02/01/5c5419a56753c.jpg',
     subway_logo: require('../assets/images/logo/nanjing.png'),
     city_picture: ''
   },
@@ -155,7 +211,7 @@ export default [
     id: 7,
     name_zh: '重庆',
     name_en: 'Chongqing',
-    subway_img: SMMS_IMG_BED_BASE + '2019/02/01/5c541676c044b.jpg',
+    subway_img: IMG_BED_BASE + '2019/02/01/5c541676c044b.jpg',
     subway_logo: require('../assets/images/logo/chongqing.png'),
     city_picture: ''
   },
@@ -163,7 +219,7 @@ export default [
     id: 8,
     name_zh: '武汉',
     name_en: 'Wuhan',
-    subway_img: SMMS_IMG_BED_BASE + '2019/02/01/5c54167783864.jpg',
+    subway_img: IMG_BED_BASE + '2019/02/01/5c54167783864.jpg',
     subway_logo: require('../assets/images/logo/wuhan.png'),
     city_picture: ''
   },
@@ -171,7 +227,7 @@ export default [
     id: 9,
     name_zh: '成都',
     name_en: 'Chengdu',
-    subway_img: SMMS_IMG_BED_BASE + '2019/02/06/5c5a964110a3e.jpg',
+    subway_img: IMG_BED_BASE + '2019/02/06/5c5a964110a3e.jpg',
     subway_logo: require('../assets/images/logo/chengdu.png'),
     city_picture: ''
   },
@@ -179,7 +235,7 @@ export default [
     id: 10,
     name_zh: '天津',
     name_en: 'Tianjin',
-    subway_img: SMMS_IMG_BED_BASE + '2019/02/06/5c5a963f6ecea.jpg',
+    subway_img: IMG_BED_BASE + '2019/02/06/5c5a963f6ecea.jpg',
     subway_logo: require('../assets/images/logo/tianjin.png'),
     city_picture: ''
   },
@@ -187,7 +243,7 @@ export default [
     id: 11,
     name_zh: '青岛',
     name_en: 'Qingdao',
-    subway_img: SMMS_IMG_BED_BASE + '2019/02/06/5c5a963f2b46f.png',
+    subway_img: IMG_BED_BASE + '2019/02/06/5c5a963f2b46f.png',
     subway_logo: require('../assets/images/logo/qingdao.png'),
     city_picture: ''
   },
@@ -195,7 +251,7 @@ export default [
     id: 12,
     name_zh: '大连',
     name_en: 'Dalian',
-    subway_img: SMMS_IMG_BED_BASE + '2019/02/06/5c5a964112ef2.png',
+    subway_img: IMG_BED_BASE + '2019/02/06/5c5a964112ef2.png',
     subway_logo: require('../assets/images/logo/dalian.png'),
     city_picture: ''
   },
@@ -203,7 +259,7 @@ export default [
     id: 13,
     name_zh: '台北',
     name_en: 'Taipei',
-    subway_img: SMMS_IMG_BED_BASE + '2019/02/06/5c5a963f83cf9.jpg',
+    subway_img: IMG_BED_BASE + '2019/02/06/5c5a963f83cf9.jpg',
     subway_logo: require('../assets/images/logo/taipei.png'),
     city_picture: ''
   },
@@ -211,7 +267,7 @@ export default [
     id: 14,
     name_zh: '苏州',
     name_en: 'Suzhou',
-    subway_img: SMMS_IMG_BED_BASE + '2019/02/06/5c5a98d9d3046.png',
+    subway_img: IMG_BED_BASE + '2019/02/06/5c5a98d9d3046.png',
     subway_logo: require('../assets/images/logo/suzhou.png'),
     city_picture: ''
   },
@@ -219,7 +275,7 @@ export default [
   //   id: 15,
   //   name_zh: '西安',
   //   name_en: 'Xi An',
-  //   subway_img: SMMS_IMG_BED_BASE + '2019/02/01/5c54065ebf07a.jpg',
+  //   subway_img: IMG_BED_BASE + '2019/02/01/5c54065ebf07a.jpg',
   //   subway_logo: require('../assets/images/logo/xian.png'),
   //   city_picture: ''
   // },
@@ -227,7 +283,7 @@ export default [
     id: 16,
     name_zh: '杭州',
     name_en: 'Hangzhou',
-    subway_img: SMMS_IMG_BED_BASE + '2019/02/13/5c639a400017d.jpg',
+    subway_img: IMG_BED_BASE + '2019/02/13/5c639a400017d.jpg',
     subway_logo: require('../assets/images/logo/hangzhou.png'),
     city_picture: ''
   },
@@ -235,7 +291,7 @@ export default [
   //   id: 17,
   //   name_zh: '长春',
   //   name_en: 'Changchun',
-  //   subway_img: SMMS_IMG_BED_BASE + '2019/02/01/5c54065ebf07a.jpg',
+  //   subway_img: IMG_BED_BASE + '2019/02/01/5c54065ebf07a.jpg',
   //   subway_logo: require('../assets/images/logo/changchun.png'),
   //   city_picture: ''
   // },
@@ -243,8 +299,10 @@ export default [
     id: 18,
     name_zh: '郑州',
     name_en: 'Zhengzhou',
-    subway_img: SMMS_IMG_BED_BASE + '2019/02/13/5c63988067c1c.jpg',
+    subway_img: IMG_BED_BASE + '2019/02/13/5c63988067c1c.jpg',
     subway_logo: require('../assets/images/logo/zhengzhou.png'),
     city_picture: ''
   }
 ]
+
+export default cities

@@ -11,8 +11,8 @@
 </style>
 
 <template>
-  <div class="components-city-card" @tap="previewMetroNet">
-    <img :src="instance.subway_logo" alt="" class="subway-logo">
+  <div class="components-city-card" @tap="navigateToCityDetail">
+    <img :src="instance.subway_logo" alt="logo" class="subway-logo">
     <div class="name-wrap">
       <p class="name name-zh">{{ instance.name_zh }}</p>
       <p class="name name-en">{{ instance.name_en }}</p>
@@ -32,15 +32,32 @@ export default {
   computed: {},
   mounted() {},
   methods: {
+    navigateToCityDetail() {
+      let city = this.instance
+      wx.navigateTo({
+        url: `/pages/citydetail/main?id=${city.id}&name=${city.name_zh}`
+      })
+    },
+    // 点击预览
     previewMetroNet() {
       let img = this.instance.subway_img || ''
       // console.log('previewMetroNet: ', img)
       if (img && img != '') {
+        // 上报点击城市名
+        wx.reportAnalytics('click_city', {
+          city_name: this.instance.name_zh || 'no_name',
+          is_foreign: this.instance.isForeignCity ? 1 : 0
+        })
         wx.previewImage({
-          urls: [this.instance.subway_img || '']
+          urls: [this.instance.subway_img || ''],
+          fail: function() {
+            wx.reportAnalytics('preview_img_fail', {
+              city_name: this.instance.name_zh || 'no_name',
+              subway_img: this.instance.subway_img || ''
+            })
+          }
         })
       }
-
     }
   },
   watch: {},

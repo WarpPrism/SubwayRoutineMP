@@ -6,6 +6,7 @@
 		"postcss": true,
 		"minified": true,
 		"newFeature": true,
+		"nodeModules": true,
 		"autoAudits": false,
 		"uglifyFileName": true
 	},
@@ -32,12 +33,27 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 0,
+			"current": 2,
 			"list": [
 				{
 					"id": -1,
 					"name": "guide",
 					"pathName": "pages/userguide/main",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 1,
+					"name": "citydetail",
+					"pathName": "pages/citydetail/main",
+					"query": "id=4&name=深圳",
+					"scene": null
+				},
+				{
+					"id": 2,
+					"name": "citywiki",
+					"pathName": "pages/citywiki/main",
+					"query": "id=3001&name=东京",
 					"scene": null
 				}
 			]
