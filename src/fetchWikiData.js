@@ -15,13 +15,13 @@ const wikiNameMap = {
 }
 let cities = ['东京', '伦敦', '巴黎', '纽约', '首尔', '新加坡', '曼谷', '吉隆坡', '莫斯科', '迪拜', '伊斯坦布尔', '大阪',
               '北京', '上海', '广州', '深圳', '香港', '南京', '重庆', '武汉', '成都', '天津', '青岛', '大连', '台北', '苏州',
-              '杭州', '郑州']
+              '杭州', '郑州', '西安', '长春', '合肥', '南昌']
 const total = cities.length
 let done = 0
 
 cities.forEach(cityName => {
   cityName = wikiNameMap[cityName] || cityName
-  let reqUrl = `${wikivoyagePC}?action=parse&format=json&mobileformat=true&page=`
+  let reqUrl = `${wikivoyagePC}?action=parse&format=json&mobileformat=true&_t=${+new Date()}&page=`
   reqUrl += encodeURIComponent(cityName)
   let writeDir = path.resolve(__dirname, `../wiki/${cityName}.html`)
   if (fsExistsSync(writeDir)) {

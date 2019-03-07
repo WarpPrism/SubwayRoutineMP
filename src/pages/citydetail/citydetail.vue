@@ -8,8 +8,10 @@
   opacity: 0.85;
 }
 .page-container { background: #eee; overflow-x: hidden; overflow-y: scroll; -webkit-overflow-scrolling: touch;
-  .page-title { font-weight: bold; font-size: 38rpx; margin: 10rpx 0 30rpx; padding-left: 2.5%;
+  .page-title { font-weight: bold; font-size: 38rpx; margin: 10rpx 0 40rpx; padding-left: 2.5%; position: relative;
     .en { font-weight: normal; font-size: 28rpx; margin-top: 10rpx; color: @wxBlue; }
+    .float-btn { width: 150rpx; height: 52rpx; line-height: 50rpx; text-align: center; position: absolute; top: 0rpx; right: 10rpx; font-weight: normal; font-size: 28rpx; background: rgba(0, 0, 0, .5); font-size: 26rpx; color: #fff; border-radius: 0; }
+    .share-btn { top: 62rpx; }
   }
   .img-container { width: 100%; height: auto;  overflow: hidden;
     .metro-img { display: block; width: 100%; height: 520rpx; border: solid 10rpx #fff; border-radius: 7rpx; }
@@ -26,6 +28,8 @@
     <div class="page-title">
       <p>{{ cityInstance.name_zh }}轨道交通图</p>
       <p class="en">{{ cityInstance.name_en }} Metro Diagram</p>
+      <button class="float-btn change-city-btn" @tap="goBackHome">切换城市</button>
+      <button class="float-btn share-btn" @tap="goToCityMap" v-if="!cityInstance.isForeignCity">查看地图</button>
     </div>
     <div class="img-container" @tap="previewMetroNet">
       <img :src="cityInstance.subway_img" :alt="cityInstance.name_zh" class="metro-img" mode="widthFix" @load="handleMetroImgLoad" @error="handleMetroImgError">
@@ -36,6 +40,7 @@
     </div>
     <!-- <div class="wiki-content" v-html="cityWiki"></div> -->
     <button class="explore-btn" type="primary" @tap="exploreCity">探索{{ cityInstance.name_zh }}</button>
+
   </div>
 </template>
 
@@ -74,7 +79,7 @@ export default {
   onShareAppMessage (options) {
     var that = this
     return {
-      title: `${this.cityName}地铁图，点击查看大图`,
+      title: `${this.cityName}高清地铁图`,
       path: `pages/citydetail/main?id=${this.cityId}&name=${this.cityName}`,
       imageUrl: this.cityInstance.subway_img || config.shareImg
     }
@@ -115,6 +120,16 @@ export default {
           }
         })
       }
+    },
+    goBackHome() {
+      wx.navigateTo({
+        url: "/pages/citylist/main"
+      })
+    },
+    goToCityMap() {
+      wx.navigateTo({
+        url: `/pages/citymap/main?id=${this.cityId}&name=${this.cityName}`
+      })
     },
     exploreCity() {
       wx.navigateTo({

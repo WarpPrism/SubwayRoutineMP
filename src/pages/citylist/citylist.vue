@@ -7,10 +7,12 @@
 .page-container { background: #eee; overflow: scroll; -webkit-overflow-scrolling: touch;
   .banner { display: block; width: calc(750rpx - 114rpx); height: 250rpx; margin: 0 auto; }
   .share-guide { width: calc(750rpx - 114rpx); margin: 0 auto 20rpx; color: @wxBlue1; font-size: 26rpx; }
-  .search-section { width: 100%; margin: 0 0 15rpx; padding: 0 37rpx; position: relative;
-    .search-input { display: inline-block; width: 520rpx; height: 61rpx; padding: 5rpx 20rpx; background: #fff; box-sizing: border-box; }
-    .search-btn { width: 100rpx; height: 61rpx; text-align: center; line-height: 58rpx; position: absolute; right: 37rpx; top: 0; background: @wxBlue1; color: #fff; border-radius: 5rpx; box-sizing: border-box;
+  .search-section { width: calc(750rpx - 110rpx); height: 70rpx; margin: 0 auto 15rpx; position: relative;
+    .search-input { display: inline-block; width: 490rpx; height: 100%; padding: 5rpx 20rpx; background: #fff; border: solid 1px #ddd; box-sizing: border-box; position: absolute; left: 0; }
+    .locate-btn { width: 130rpx; height: 100%; position : absolute; right: 0; top: 0; background: @wxBlue1; color: #fff; border-radius: 5rpx; box-sizing: border-box; display: flex; justify-content: center; align-items: center;
       &:active { opacity: 0.8; }
+      .icon { width: 38rpx; height: 38rpx; margin-right: 5rpx; }
+      text { margin-top: -5rpx; }
     }
   }
   scroll-view.cities-wrap { width: 100%; height: 1050rpx; }
@@ -40,10 +42,14 @@
         class="search-input"
         type="text"
         placeholder="输入您所在的城市，如北京"
-        maxlength="35"
+        maxlength="50"
+        :value="searchInputValue"
         @input="handleSearchInput"
       />
-      <div class="search-btn" @tap="clickSearchBtn">定位</div>
+      <div class="locate-btn" @tap="getUserLocation">
+        <img :src="locationIcon" class="icon" />
+        <text>定位</text>
+      </div>
     </div>
     <!-- <scroll-view scroll-y="" class="cities-wrap"></scroll-view> -->
 
@@ -53,7 +59,7 @@
     <div class="section-title t2" v-if="WorldCities.length > 0">国际城市</div>
     <CityCard v-for="city in WorldCities" :key="city.id" :instance="city"></CityCard>
 
-    <div class="empty-info" v-if="ChinaCities.length <= 0 && WorldCities.length <= 0">暂无您要找的城市🤔</div>
+    <div class="empty-info" v-if="ChinaCities.length <= 0 && WorldCities.length <= 0 && searchInputValue != ''">暂无您要找的城市🤔</div>
 
 
     <div class="read-user-guide" @tap="readUserGuide">《用户使用指南及反馈》</div>
@@ -65,8 +71,12 @@
 
 <script>
 import config from '@/config'
-
 import CityCard from '@/components/CityCard'
+import QQMapWX from '../../assets/lib/qqmap-wx-jssdk.min.js'
+const QQMapSDK = new QQMapWX({
+  key: config.qqMapKey || ''
+})
+
 export default {
   name: 'CityList',
   props: [],
@@ -74,10 +84,13 @@ export default {
   data() {
     return {
       // bannerUrl: require('../../assets/images/banner.jpg'),
+      locationIcon: require('../../assets/images/location.png'),
       preloadSrc: '',
       allCities: config.allCities || [],
       ChinaCities: [],
-      WorldCities: []
+      WorldCities: [],
+      searchInputValue: '',
+      myAddress: ''
     }
   },
   computed: {},
@@ -122,37 +135,7 @@ export default {
     },
     handleSearchInput(e) {
       let value = e.mp.detail.value
-      value = value.trim().toLowerCase()
-      if (!value || value == '') {
-        this.resetCities()
-        return
-      }
-      let searchCities = []
-      searchCities = this.allCities.filter(city => {
-        if (city.name_en.toLowerCase().indexOf(value) > -1) {
-          return true
-        }
-        if (city.name_zh.indexOf(value) > -1) {
-          return true
-        }
-        return false
-      })
-      this.ChinaCities = searchCities.filter(city => {
-        return city && !city.isForeignCity
-      })
-      this.WorldCities = searchCities.filter(city => {
-        return city && city.isForeignCity
-      })
-    },
-    clickSearchBtn() {
-      if (this.ChinaCities.length <= 0 && this.WorldCities.length <= 0) {
-        wx.showToast({
-          title: '对不起，找不到相关城市信息',
-          mask: true,
-          icon: 'none',
-          duration: 1000
-        })
-      }
+      this.searchInputValue = value
     },
     // 点击收藏小程序
     clickStarMp() {
@@ -169,9 +152,73 @@ export default {
       wx.navigateTo({
         url: '/pages/userguide/main'
       })
+    },
+    getUserLocation() {
+      // 已经定过位了
+      if (this.myAddress && this.myAddress !== '') {
+        this.searchInputValue = this.myAddress || ''
+        return
+      }
+      // 逆向解析经纬度
+      QQMapSDK.reverseGeocoder({
+        success: (res) => {
+          console.log(res);
+          if (res && res.result) {
+            this.myAddress = res.result.address
+            this.searchInputValue = this.myAddress || ''
+            // 设置失效时间 1分钟
+            setTimeout(() => {
+              this.myAddress = ''
+            }, 60e3)
+          }
+        },
+        fail: () => {
+          wx.showToast({
+            title: '定位失败',
+            icon: 'none',
+            duration: 2000
+          })
+        }
+      })
     }
   },
-  watch: {},
+  watch: {
+    searchInputValue: function (value) {
+      value = value.trim().toLowerCase()
+      if (!value || value == '') {
+        this.resetCities()
+        return
+      }
+      let searchCities = []
+      searchCities = this.allCities.filter(city => {
+        let name_en = city.name_en.toLowerCase()
+        // 匹配英文名
+        if (name_en.indexOf(value) > -1 || value.indexOf(name_en) > -1) {
+          return true
+        }
+        // 匹配中文城市名
+        if (city.name_zh.indexOf(value) > -1 || value.indexOf(city.name_zh) > -1) {
+          return true
+        }
+        // 匹配省的名字（只针对国内城市）
+        let provinces = city.province ? city.province.split(',') : []
+        if (
+          provinces.some(p => {
+            return value.indexOf(p) > -1
+          })
+        ) {
+          return true
+        }
+        return false
+      })
+      this.ChinaCities = searchCities.filter(city => {
+        return city && !city.isForeignCity
+      })
+      this.WorldCities = searchCities.filter(city => {
+        return city && city.isForeignCity
+      })
+    }
+  },
   components: {
     CityCard
   }

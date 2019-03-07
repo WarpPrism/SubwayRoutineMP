@@ -31,6 +31,10 @@ const IMG_BED_BASE = SMMS
 https://www.dir126.com
 <img src="https://i.loli.net/2019/02/13/5c63988067c1c.jpg" alt="zhengzhou.jpg" title="zhengzhou.jpg" />
 http://www.izuoche.com/ditie/
+<img src="https://i.loli.net/2019/03/04/5c7cca600d92b.jpg" alt="hefei.jpg" title="hefei.jpg" />
+<img src="https://i.loli.net/2019/03/04/5c7cd007522ce.jpg" alt="nanchang.jpg" title="nanchang.jpg" />
+<img src="https://i.loli.net/2019/03/04/5c7ce54aab6ec.jpg" alt="xian.jpg" title="xian.jpg" />
+<img src="https://i.loli.net/2019/03/04/5c7ce55e7ff5b.jpg" alt="changchun.jpg" title="changchun.jpg" />
 
 <img src="https://i.loli.net/2019/02/13/5c63dafb9fc7c.jpg" alt="tokyo.jpg" title="tokyo.jpg" />
 <img src="https://i.loli.net/2019/02/13/5c63dc04ab500.gif" alt="london.gif" title="london.gif" />
@@ -48,6 +52,7 @@ https://www.dubaitourism.cn/
 <img src="https://i.loli.net/2019/02/15/5c6659e52a015.png" alt="Istanbul.png" title="Istanbul.png" />
 <img src="https://i.loli.net/2019/02/15/5c665ed1573d1.gif" alt="osaka.gif" title="osaka.gif" />
 <img src="https://i.loli.net/2019/02/15/5c66641f768d0.png" alt="Kuala Lumpur.png" title="Kuala Lumpur.png" />
+
 \******************************************************************************************************************/
 
 let cities = [
@@ -165,7 +170,8 @@ let cities = [
     name_en: 'Beijing',
     subway_img: IMG_BED_BASE + '2019/02/01/5c54066098040.jpg',
     subway_logo: require('../assets/images/logo/beijing.png'),
-    city_picture: ''
+    city_picture: '',
+    province: '河北,内蒙古,山西'
   },
   {
     id: 2,
@@ -173,7 +179,8 @@ let cities = [
     name_en: 'Shanghai',
     subway_img: IMG_BED_BASE + '2019/02/01/5c54065c323cf.jpg',
     subway_logo: require('../assets/images/logo/shanghai.png'),
-    city_picture: ''
+    city_picture: '',
+    province: '江苏,浙江'
   },
   {
     id: 3,
@@ -181,7 +188,8 @@ let cities = [
     name_en: 'Canton',
     subway_img: IMG_BED_BASE + '2019/02/01/5c54065f25892.jpg',
     subway_logo: require('../assets/images/logo/canton.png'),
-    city_picture: ''
+    city_picture: '',
+    province: '广东,广西,湖南'
   },
   {
     id: 4,
@@ -189,7 +197,8 @@ let cities = [
     name_en: 'Shenzhen',
     subway_img: IMG_BED_BASE + '2019/02/01/5c54065ebf07a.jpg',
     subway_logo: require('../assets/images/logo/shenzhen.png'),
-    city_picture: ''
+    city_picture: '',
+    province: '广东,福建'
   },
   {
     id: 5,
@@ -197,7 +206,8 @@ let cities = [
     name_en: 'Hong Kong',
     subway_img: IMG_BED_BASE + '2019/02/01/5c541675955a0.jpg',
     subway_logo: require('../assets/images/logo/hongkong.png'),
-    city_picture: ''
+    city_picture: '',
+    province: '广东'
   },
   {
     id: 6,
@@ -205,7 +215,8 @@ let cities = [
     name_en: 'Nanjing',
     subway_img: IMG_BED_BASE + '2019/02/01/5c5419a56753c.jpg',
     subway_logo: require('../assets/images/logo/nanjing.png'),
-    city_picture: ''
+    city_picture: '',
+    province: '江苏,浙江,安徽'
   },
   {
     id: 7,
@@ -213,7 +224,8 @@ let cities = [
     name_en: 'Chongqing',
     subway_img: IMG_BED_BASE + '2019/02/01/5c541676c044b.jpg',
     subway_logo: require('../assets/images/logo/chongqing.png'),
-    city_picture: ''
+    city_picture: '',
+    province: '四川,湖北,贵州'
   },
   {
     id: 8,
@@ -221,7 +233,8 @@ let cities = [
     name_en: 'Wuhan',
     subway_img: IMG_BED_BASE + '2019/02/01/5c54167783864.jpg',
     subway_logo: require('../assets/images/logo/wuhan.png'),
-    city_picture: ''
+    city_picture: '',
+    province: '湖北,河南,江西'
   },
   {
     id: 9,
@@ -229,7 +242,8 @@ let cities = [
     name_en: 'Chengdu',
     subway_img: IMG_BED_BASE + '2019/02/06/5c5a964110a3e.jpg',
     subway_logo: require('../assets/images/logo/chengdu.png'),
-    city_picture: ''
+    city_picture: '',
+    province: '四川,云南'
   },
   {
     id: 10,
@@ -237,7 +251,8 @@ let cities = [
     name_en: 'Tianjin',
     subway_img: IMG_BED_BASE + '2019/02/06/5c5a963f6ecea.jpg',
     subway_logo: require('../assets/images/logo/tianjin.png'),
-    city_picture: ''
+    city_picture: '',
+    province: '河北,辽宁'
   },
   {
     id: 11,
@@ -245,7 +260,8 @@ let cities = [
     name_en: 'Qingdao',
     subway_img: IMG_BED_BASE + '2019/02/06/5c5a963f2b46f.png',
     subway_logo: require('../assets/images/logo/qingdao.png'),
-    city_picture: ''
+    city_picture: '',
+    province: '山东'
   },
   {
     id: 12,
@@ -253,7 +269,8 @@ let cities = [
     name_en: 'Dalian',
     subway_img: IMG_BED_BASE + '2019/02/06/5c5a964112ef2.png',
     subway_logo: require('../assets/images/logo/dalian.png'),
-    city_picture: ''
+    city_picture: '',
+    province: '辽宁,吉林,黑龙江'
   },
   {
     id: 13,
@@ -261,7 +278,8 @@ let cities = [
     name_en: 'Taipei',
     subway_img: IMG_BED_BASE + '2019/02/06/5c5a963f83cf9.jpg',
     subway_logo: require('../assets/images/logo/taipei.png'),
-    city_picture: ''
+    city_picture: '',
+    province: '台湾'
   },
   {
     id: 14,
@@ -269,40 +287,61 @@ let cities = [
     name_en: 'Suzhou',
     subway_img: IMG_BED_BASE + '2019/02/06/5c5a98d9d3046.png',
     subway_logo: require('../assets/images/logo/suzhou.png'),
-    city_picture: ''
+    city_picture: '',
+    province: '江苏,浙江'
   },
-  // {
-  //   id: 15,
-  //   name_zh: '西安',
-  //   name_en: 'Xi An',
-  //   subway_img: IMG_BED_BASE + '2019/02/01/5c54065ebf07a.jpg',
-  //   subway_logo: require('../assets/images/logo/xian.png'),
-  //   city_picture: ''
-  // },
+  {
+    id: 15,
+    name_zh: '西安',
+    name_en: 'Xi An',
+    subway_img: IMG_BED_BASE + '2019/03/04/5c7ce54aab6ec.jpg',
+    subway_logo: require('../assets/images/logo/xian.png'),
+    city_picture: '',
+  },
   {
     id: 16,
     name_zh: '杭州',
     name_en: 'Hangzhou',
     subway_img: IMG_BED_BASE + '2019/02/13/5c639a400017d.jpg',
     subway_logo: require('../assets/images/logo/hangzhou.png'),
-    city_picture: ''
+    city_picture: '',
+    province: '浙江,江苏'
   },
-  // {
-  //   id: 17,
-  //   name_zh: '长春',
-  //   name_en: 'Changchun',
-  //   subway_img: IMG_BED_BASE + '2019/02/01/5c54065ebf07a.jpg',
-  //   subway_logo: require('../assets/images/logo/changchun.png'),
-  //   city_picture: ''
-  // },
+  {
+    id: 17,
+    name_zh: '长春',
+    name_en: 'Changchun',
+    subway_img: IMG_BED_BASE + '2019/03/04/5c7ce55e7ff5b.jpg',
+    subway_logo: require('../assets/images/logo/changchun.png'),
+    city_picture: '',
+  },
   {
     id: 18,
     name_zh: '郑州',
     name_en: 'Zhengzhou',
     subway_img: IMG_BED_BASE + '2019/02/13/5c63988067c1c.jpg',
     subway_logo: require('../assets/images/logo/zhengzhou.png'),
-    city_picture: ''
-  }
+    city_picture: '',
+    province: '河南,河北'
+  },
+  {
+    id: 19,
+    name_zh: '合肥',
+    name_en: 'Hefei',
+    subway_img: IMG_BED_BASE + '2019/03/04/5c7cca600d92b.jpg',
+    subway_logo: require('../assets/images/logo/hefei.png'),
+    city_picture: '',
+    province: '安徽,河南,江苏'
+  },
+  {
+    id: 20,
+    name_zh: '南昌',
+    name_en: 'Nanchang',
+    subway_img: IMG_BED_BASE + '2019/03/04/5c7cd007522ce.jpg',
+    subway_logo: require('../assets/images/logo/nanchang.png'),
+    city_picture: '',
+    province: '江西,安徽,江苏,福建'
+  },
 ]
 
 export default cities
