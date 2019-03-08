@@ -4,7 +4,7 @@ let config = {
   allCities: cities,
   shareTitle: '请查收，全球主要城市地铁线路图，最全最方便！',
   shareImg: require('../assets/images/share.png'),
-  qqMapKey: 'VEHBZ-S6A34-QTKUP-DK3HK-TLN5O-DNF5L'
+  qqMapKey: 'YOUR-OWN-MAP-KEY'
 }
 
 export default config
