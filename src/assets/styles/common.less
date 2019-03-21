@@ -1,9 +1,16 @@
 
-page, view, scroll-view, form, button, image {
+page, view, scroll-view, form, button, image, input, cover-view, movable-area, movable-view {
   width: 100%;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+button, .btn {
+  border-radius: 0;
+}
+button::after {
+  border: none;
 }
 
 page {
@@ -22,7 +29,6 @@ page {
   padding: 20rpx;
   -webkit-overflow-scrolling: touch;
 }
-
 
 .clearfix:after {
   content: " ";

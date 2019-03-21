@@ -1,4 +1,5 @@
 <style lang="less">
+@import url('../assets/styles/variable.less');
 // box-shadow: 1px 1px 3px 1px #ddd;
 .components-city-card { width: 280rpx; height: 280rpx; margin: 20rpx 37rpx; text-align: center; background: #fff; position: relative; display: inline-block;
   &:active { opacity: .7; }
@@ -24,7 +25,12 @@
 <script>
 export default {
   name: 'CityCard',
-  props: ['instance'],
+  props: {
+    instance: {
+      type: Object,
+      default: {}
+    }
+  },
   mixins: [],
   data() {
     return {}
@@ -34,6 +40,11 @@ export default {
   methods: {
     navigateToCityDetail() {
       let city = this.instance
+      // 上报点击城市名
+      wx.reportAnalytics('click_city', {
+        city_name: city.name_zh || 'no_name',
+        is_foreign: city.isForeignCity ? 1 : 0
+      })
       wx.navigateTo({
         url: `/pages/citydetail/main?id=${city.id}&name=${city.name_zh}`
       })

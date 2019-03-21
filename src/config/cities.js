@@ -1,6 +1,5 @@
 // SM.MS 图床地址
 const SMMS = 'https://i.loli.net/'
-const WEIBO = 'https://ws1.sinaimg.cn/large/e3e8443agy1g0l7tspbk7j216x113jt4.jpg'
 
 const IMG_BED_BASE = SMMS
 

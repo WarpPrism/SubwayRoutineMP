@@ -1,33 +1,42 @@
 <style lang="less">
-@wxGreen: #1aad19;
-@wxGreenPress: #2ba245;
-@wxBlue: #10AEFF;
-@wxBlue1: #2782D7;
-@wxRed: #d84e43;
+@import url('../../assets/styles/variable.less');
 .page-container { background: #eee; overflow: scroll; -webkit-overflow-scrolling: touch;
   .banner { display: block; width: calc(750rpx - 114rpx); height: 250rpx; margin: 0 auto; }
-  .share-guide { width: calc(750rpx - 114rpx); margin: 0 auto 20rpx; color: @wxBlue1; font-size: 26rpx; }
-  .search-section { width: calc(750rpx - 110rpx); height: 70rpx; margin: 0 auto 15rpx; position: relative;
+  .share-guide { width: calc(750rpx - 114rpx); margin: 0 auto 20rpx; color: @wx-blue; font-size: 26rpx; }
+  .search-section { width: calc(750rpx - 110rpx); height: 70rpx; margin: 0 auto 20rpx; position: relative;
     .search-input { display: inline-block; width: 490rpx; height: 100%; padding: 5rpx 20rpx; background: #fff; border: solid 1px #ddd; box-sizing: border-box; position: absolute; left: 0; }
-    .locate-btn { width: 130rpx; height: 100%; position : absolute; right: 0; top: 0; background: @wxBlue1; color: #fff; border-radius: 5rpx; box-sizing: border-box; display: flex; justify-content: center; align-items: center;
+    .locate-btn { width: 130rpx; height: 100%; position : absolute; right: 0; top: 0; background: @wx-blue; color: #fff; box-sizing: border-box; display: flex; justify-content: center; align-items: center;
       &:active { opacity: 0.8; }
       .icon { width: 38rpx; height: 38rpx; margin-right: 5rpx; }
       text { margin-top: -5rpx; }
     }
   }
-  scroll-view.cities-wrap { width: 100%; height: 1050rpx; }
 
-  .section-title { width: calc(750rpx - 114rpx); text-align: center; font-size: 38rpx; margin: 20rpx auto; padding: 15rpx 0; letter-spacing: 2rpx;  background-image: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%); color: #fefefe; }
-  .section-title.title1 { background-image: linear-gradient(to right, #b8cbb8 0%, #b8cbb8 0%, #b465da 0%, #cf6cc9 33%, #ee609c 66%, #ee609c 100%); }
+  // .section-title { width: calc(750rpx - 114rpx); text-align: center; font-size: 38rpx; margin: 20rpx auto; padding: 15rpx 0; letter-spacing: 2rpx;  background-image: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%); color: #fefefe; }
+  // .section-title.title1 { background-image: linear-gradient(to right, #b8cbb8 0%, #b8cbb8 0%, #b465da 0%, #cf6cc9 33%, #ee609c 66%, #ee609c 100%); }
+
+  .tab-bar { width: calc(750rpx - 114rpx); margin: 0 auto; position: relative;
+    .tab { display: inline-block; width: 200rpx; height: 70rpx; line-height: 70rpx; text-align: center; font-size: 36rpx; background: #fff; }
+    .tab.cn-tab.active { color: #fefefe; background-image: linear-gradient(to right, #b8cbb8 0%, #b8cbb8 0%, #b465da 0%, #cf6cc9 33%, #ee609c 66%, #ee609c 100%); }
+    .tab.active { color: #fefefe; background-image: linear-gradient(120deg, #89d7fe 0%, #66a6ff 100%); }
+
+    .more-function { width: 220rpx; background: none; position: absolute; top: 0; right: 0;
+      .more-icon { display: inline-block; width: 50rpx; height: 50rpx; vertical-align: middle; }
+      text { margin-left: 5rpx; vertical-align: middle; color: @wx-blue; }
+      &:active { background: #e0e0e0; }
+    }
+  }
 
   .empty-info { width: calc(750rpx - 114rpx); height: 300rpx; line-height: 300rpx; text-align: center; font-size: 32rpx; margin: 20rpx auto; }
 
-  .read-user-guide { width: calc(750rpx - 114rpx); margin: auto; color: @wxBlue1; }
+  .read-user-guide { width: calc(750rpx - 114rpx); margin: auto; color: @wx-blue; }
 
-  .bottom-btn { width: calc(750rpx - 114rpx); margin: 25rpx auto; background: @wxBlue1; }
+  .btns-wrap { display: flex; justify-content: space-around; align-items: center; }
+  .bottom-btn { width: 300rpx; margin: 25rpx auto; background: @wx-blue-L; text-shadow: 1px 1px 10rpx #ccc; }
   .button-hover[type=primary] {
     opacity: 0.85;
   }
+  .star-btn { background: @wx-yellow; }
 }
 </style>
 
@@ -36,7 +45,7 @@
     <!-- <img class="preload" :src="preloadSrc" @load="imageOnLoad" @error="imageOnLoadError" > -->
 
     <!-- <img :src="bannerUrl" alt="" class="banner"> -->
-    <p class="share-guide">如果觉得小程序对您有帮助，可以转发给好友哦👆</p>
+    <p class="share-guide">如果觉得小程序对您有帮助，可以转发给好友哦{{emoji.pointUp}}</p>
     <div class="search-section">
       <input
         class="search-input"
@@ -51,28 +60,48 @@
         <text>定位</text>
       </div>
     </div>
-    <!-- <scroll-view scroll-y="" class="cities-wrap"></scroll-view> -->
 
-    <div class="section-title title1" v-if="ChinaCities.length > 0">国内城市</div>
-    <CityCard v-for="city in ChinaCities" :key="city.id" :instance="city"></CityCard>
+    <!-- <div class="section-title title1" v-if="ChinaCities.length > 0">国内城市</div>
+    <CityCard v-for="city in ChinaCities" :key="city.id" :instance="city" />
 
-    <div class="section-title t2" v-if="WorldCities.length > 0">国际城市</div>
-    <CityCard v-for="city in WorldCities" :key="city.id" :instance="city"></CityCard>
+    <div class="section-title title2" v-if="WorldCities.length > 0">国际城市</div>
+    <CityCard v-for="wcity in WorldCities" :key="wcity.id" :instance="wcity" /> -->
 
-    <div class="empty-info" v-if="ChinaCities.length <= 0 && WorldCities.length <= 0 && searchInputValue != ''">暂无您要找的城市🤔</div>
+    <div class="tab-bar">
+      <div class="tab cn-tab" :class="{'active': activeTab == 'cn'}" v-if="ChinaCities.length > 0" @tap="clickTab('cn')">国内城市</div>
+      <div class="tab en-tab" :class="{'active': activeTab == 'en'}" v-if="WorldCities.length > 0" @tap="clickTab('en')">国际城市</div>
+      <div class="tab more-function" @tap="goToMoreFeature">
+        <img :src="moreIcon" alt="" class="more-icon">
+        <text>更多功能</text>
+      </div>
+    </div>
 
+    <div class="city-list cn-list" v-show="activeTab=='cn'">
+      <CityCard v-for="city in ChinaCities" :key="city.id" :instance="city" />
+    </div>
 
-    <div class="read-user-guide" @tap="readUserGuide">《用户使用指南及反馈》</div>
+    <div class="city-list en-list" v-show="activeTab=='en'">
+      <CityCard v-for="wcity in WorldCities" :key="wcity.id" :instance="wcity" />
+    </div>
 
-    <button class="bottom-btn" open-type="share" type="primary">发送给好友</button>
-    <button class="bottom-btn" type="primary" @tap="clickStarMp">收藏小程序</button>
+    <div class="empty-info" v-if="ChinaCities.length <= 0 && WorldCities.length <= 0 && searchInputValue != ''">暂无您要找的城市{{emoji.thinkingFace}}</div>
+
+    <div class="bottom-section">
+      <!--<div class="read-user-guide" @tap="readUserGuide">《用户使用指南及反馈》</div>-->
+      <div class="btns-wrap">
+        <button class="bottom-btn star-btn" type="primary" @tap="clickStarMp">收藏小程序</button>
+        <button class="bottom-btn share-btn" open-type="share" type="primary">分享给好友</button>
+      </div>
+    </div>
+
   </div>
 </template>
 
 <script>
 import config from '@/config'
+import weiboPicMixin from '@/mixins/weiboPicMixin'
 import CityCard from '@/components/CityCard'
-import QQMapWX from '../../assets/lib/qqmap-wx-jssdk.min.js'
+import QQMapWX from '../../assets/lib/qqmap-wx-jssdk.js'
 const QQMapSDK = new QQMapWX({
   key: config.qqMapKey || ''
 })
@@ -80,15 +109,18 @@ const QQMapSDK = new QQMapWX({
 export default {
   name: 'CityList',
   props: [],
-  mixins: [],
+  mixins: [weiboPicMixin],
   data() {
     return {
       // bannerUrl: require('../../assets/images/banner.jpg'),
       locationIcon: require('../../assets/images/location.png'),
+      moreIcon: require('../../assets/images/more.png'),
       preloadSrc: '',
+      emoji: config.emoji,
       allCities: config.allCities || [],
       ChinaCities: [],
       WorldCities: [],
+      activeTab: 'cn',
       searchInputValue: '',
       myAddress: ''
     }
@@ -98,7 +130,10 @@ export default {
     wx.reportAnalytics('showhome', {})
   },
   mounted() {
+    let fromRemote = true
     this.resetCities()
+    // 同步远端更新
+    this.getWeiboPic(fromRemote)
     // 打印城市名
     // this.allCities.forEach(c => {
     //   console.log(c.name_zh);
@@ -125,6 +160,15 @@ export default {
     // imageOnLoadError() {
     //   console.log('图片加载失败')
     // },
+    // 切换城市列表tab
+    clickTab(type) {
+      this.activeTab = type
+    },
+    goToMoreFeature() {
+      wx.navigateTo({
+        url: '/pages/morefeature/main'
+      })
+    },
     resetCities() {
       this.ChinaCities = this.allCities.filter(city => {
         return city && !city.isForeignCity
@@ -145,12 +189,6 @@ export default {
         mask: true,
         icon: 'none',
         duration: 2000
-      })
-    },
-    // 跳转到用户指引
-    readUserGuide() {
-      wx.navigateTo({
-        url: '/pages/userguide/main'
       })
     },
     getUserLocation() {
@@ -217,6 +255,12 @@ export default {
       this.WorldCities = searchCities.filter(city => {
         return city && city.isForeignCity
       })
+      if (this.ChinaCities.length <= 0) {
+        this.activeTab = 'en'
+      }
+      if (this.WorldCities.length <= 0) {
+        this.activeTab = 'cn'
+      }
     }
   },
   components: {
