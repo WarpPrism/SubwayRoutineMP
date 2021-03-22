@@ -29,9 +29,9 @@
       enable-rotate
       style="width: 100%; height: 100%;"
     >
-      <cover-view class="map-cover-view">
+      <!-- <cover-view class="map-cover-view">
         <button class="explore-btn" type="primary" @tap="exploreCity">查看旅游攻略</button>
-      </cover-view>
+      </cover-view> -->
     </map>
   </div>
 </template>

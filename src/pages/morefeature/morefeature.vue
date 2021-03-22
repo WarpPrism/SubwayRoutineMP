@@ -8,9 +8,12 @@
       &:active { background: #fff; color: #1a1a1a; }
     }
   }
-  .section-title { width: 100%; padding: 20rpx 30rpx; margin-top: 10rpx; color: #666; font-size: 28rpx; }
+  .section-title { width: 100%; padding: 15rpx 30rpx; margin-top: 0rpx; color: #666; font-size: 28rpx; }
   .section { width: 100%; padding: 20rpx 30rpx; background: #fff; border-bottom: solid 1px #eee; position: relative;
-    .left { display: inline-block; width: 50%; text-align: left; }
+    .left { display: inline-block; width: 50%; text-align: left; 
+      .icon { display: inline-block; width: 50rpx; height: 50rpx; vertical-align: middle; }
+      .text { vertical-align: middle; margin-left: 10rpx; }
+    }
     .right { display: inline-block; width: 50%; text-align: right; color: #666; font-size: 28rpx; }
     &:active { background: #dfdfdf; }
   }
@@ -43,11 +46,27 @@
 
     <div class="section-title">更多功能</div>
     <div class="section" @tap="previewHistory">
-      <div class="left">中国地铁发展历程</div>
+      <div class="left">
+        <img :src="movieIcon" alt="" class="icon">
+        <text class="text">中国地铁发展历程</text>
+      </div>
       <div class="right">截至2020</div>
     </div>
+    <div class="section" @tap="previewHighRail">
+      <div class="left">
+        <img :src="copyIcon" alt="" class="icon">
+        <text class="text">中国高铁线网图</text>
+      </div>
+      <div class="right">高清大图</div>
+    </div>
     <div class="section-title">为你推荐</div>
-    <div class="section recommend-section">
+    <div class="section recommend-section" @tap="previewRailFanQr">
+      <img :src="railFanAvatarSrc" alt="" class="avatar">
+      <div class="name">铁路迷</div>
+      <div class="op-btn" @tap="previewRailFanQr">查看详情</div>
+      <div class="desc">精美高铁、地铁、轨道交通线路图绘制&分享</div>
+    </div>
+    <div class="section recommend-section" @tap="previewCsandQr">
       <img :src="csandAvatarSrc" alt="" class="avatar">
       <div class="name">CSandCatti</div>
       <div class="op-btn" @tap="previewCsandQr">查看详情</div>
@@ -56,15 +75,24 @@
 
     <div class="section-title">关于</div>
     <div class="section" @tap="readUserGuide">
-      <div class="left">用户使用指南及反馈</div>
+      <div class="left">
+        <img :src="fileIcon" alt="" class="icon">
+        <text class="text">用户使用指南及反馈</text>
+      </div>
       <div class="right"></div>
     </div>
     <div class="section" @tap="showModal">
-      <div class="left">公众号关联小程序</div>
+      <div class="left">
+        <img :src="linkIcon" alt="" class="icon">
+        <text class="text">公众号关联小程序</text>
+      </div>
       <div class="right">wxad716b9e75e773b5</div>
     </div>
     <div class="section">
-      <div class="left">联系方式</div>
+      <div class="left">
+        <img :src="emailIcon" alt="" class="icon">
+        <text class="text">联系方式</text>
+      </div>
       <div class="right">zhoujh29@mail2.sysu.edu.cn</div>
     </div>
   </div>
@@ -80,8 +108,16 @@ export default {
   data() {
     return {
       metroHistorySrc: 'https://i.loli.net/2019/03/17/5c8ddd1538d46.gif',
-      csandAvatarSrc: 'https://i.loli.net/2019/03/17/5c8dd532ea847.jpg',
+      highRailSrc: 'https://i.loli.net/2019/04/07/5ca9d15828d0c.jpg',
+      csandAvatarSrc: 'https://i.loli.net/2019/04/07/5ca9d11fe5647.jpg',
       csandQrSrc: 'https://i.loli.net/2019/03/17/5c8dd532e9819.jpg',
+      railFanAvatarSrc: 'https://i.loli.net/2019/04/07/5ca9d11fe73b7.jpg',
+      railFanQrSrc: 'https://i.loli.net/2019/04/07/5ca9d1212db3d.jpg',
+      movieIcon: require('../../assets/images/icon_movie.png'),
+      copyIcon: require('../../assets/images/icon_copy.png'),
+      fileIcon: require('../../assets/images/icon_file.png'),
+      linkIcon: require('../../assets/images/icon_link.png'),
+      emailIcon: require('../../assets/images/icon_email.png'),
       modalShow: false
     }
   },
@@ -95,10 +131,24 @@ export default {
     }
   },
   mounted() {},
+  // unload时销毁vue数据，因为mpvue中小程序返回时只销毁了Page
+  onUnload(){
+    this.modalShow = false
+  },
   methods: {
     previewHistory() {
       wx.previewImage({
         urls: [this.metroHistorySrc || '']
+      })
+    },
+    previewHighRail() {
+      wx.previewImage({
+        urls: [this.highRailSrc || '']
+      })
+    },
+    previewRailFanQr() {
+      wx.previewImage({
+        urls: [this.railFanQrSrc || '']
       })
     },
     previewCsandQr() {

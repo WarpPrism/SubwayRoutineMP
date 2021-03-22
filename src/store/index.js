@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 
 // import user from './modules/user'
 // import system from './modules/system'
-import mapp from './modules/mapp'
+import map from './modules/map'
 
 Vue.use(Vuex)
 
@@ -13,7 +13,7 @@ const store = new Vuex.Store({
   modules: {
     // user,
     // system
-    mapp
+    map
   },
   strict: debug
 })

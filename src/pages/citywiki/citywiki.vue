@@ -18,7 +18,7 @@
 <template>
   <div class="page-container page-city-detail" v-show="wikiDataStatus == 'SUCCESS'" >
     <div class="page-title">
-      <p>欢迎来到{{ cityInstance.name_zh }}</p>
+      <p>{{ cityInstance.name_zh }}旅游攻略</p>
       <p class="en">Welcome to {{ cityInstance.name_en }}</p>
       <button class="float-btn change-city-btn" @tap="goBackHome">切换城市</button>
       <button class="float-btn share-btn" open-type="share">分享好友</button>
@@ -68,7 +68,7 @@ export default {
   onShareAppMessage (options) {
     var that = this
     return {
-      title: `我在${this.cityName}等你，你呢？`,
+      title: `我在探索${this.cityName}，正等你来~`,
       path: `pages/citywiki/main?id=${this.cityId}&name=${this.cityName}`
     }
   },
@@ -82,6 +82,19 @@ export default {
 
   mounted() {
     this.fetchWikiDataFromGitee()
+
+    // 创建插屏广告实例
+    if (wx.createInterstitialAd) {
+      this.interstitialAd = wx.createInterstitialAd({
+        adUnitId: 'adunit-4617e5a38b3e945d'
+      })
+    }
+    // 在适合的场景显示插屏广告
+    if (this.interstitialAd) {
+      this.interstitialAd.show().catch((err) => {
+        console.error(err)
+      })
+    }
   },
   methods: {
     goBackHome() {
@@ -99,7 +112,8 @@ export default {
       })
       this.cityWikiHtml = ''
       this.wikiDataStatus = 'LOADING'
-      const Gitee_URL = 'https://gitee.com/zhoujihao/public_data/raw/master/wikivoyage'
+      // const Gitee_URL = 'https://gitee.com/crystalworld/public_data/raw/master/wikivoyage'
+      const Gitee_URL = 'https://cdn.jsdelivr.net/gh/WarpPrism/SubwayRoutineMP@latest'
       const wikiNameMap = {
         '东京': '東京',
         '纽约': '紐約',
@@ -109,7 +123,7 @@ export default {
       let queryName = this.cityInstance.name_zh
       queryName = wikiNameMap[queryName] || queryName
       wx.request({
-        url: `${Gitee_URL}/${queryName}.html`,
+        url: `${Gitee_URL}/travel/${queryName}.html`,
         method: 'GET',
         success: (res) => {
           if (res && res.data) {

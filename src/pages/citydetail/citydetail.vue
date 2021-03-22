@@ -13,7 +13,7 @@
     .float-btn { width: 150rpx; height: 52rpx; line-height: 50rpx; text-align: center; position: absolute; top: 0rpx; right: 10rpx; font-weight: normal; font-size: 28rpx; background: rgba(0, 0, 0, .5); font-size: 26rpx; color: #fff; border-radius: 0; }
     .share-btn { top: 62rpx; }
   }
-  .img-container { width: 100%; height: auto; margin: 0 0 30rpx; overflow: hidden;
+  .img-container { width: 100%; height: auto; margin: 0 0 20rpx; overflow: hidden;
     .metro-img { width: 100%; height: 520rpx; border: solid 10rpx #fff; border-radius: 7rpx; }
   }
 
@@ -24,63 +24,66 @@
   //   }
   // }
 
-  .btn-group { width: 100%; margin: 0 0 20rpx;
+  .btn-group { width: 100%; margin: 0 0 15rpx;
     .btn { display: inline-block; width: 45%; margin: 0 2.5%; background: @wx-blue; font-size: 16px; line-height: 75rpx; }
+    .preview-btn { background: @wx-blue; }
+    .share-btn { background: @wx-blue-L; }
   }
   .explore-btn { width: 95%; margin: 0 auto 20rpx; line-height: 75rpx;  background-image: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%); background: @wx-red; color: #fff; text-align: center;  }
+  .banner-ad { margin: 0 auto 20rpx; }
 }
 </style>
 
 <template>
   <div class="page-container page-city-detail">
+
     <div class="page-title">
-      <p class="zh">
-        <span>{{ cityInstance.name_zh }}轨道交通</span>
+      <h1 class="zh" :aria-label="cityInstance.name_zh + '地铁线路图'">
+        <text>{{ cityInstance.name_zh }}地铁线路图</text>
         <img :src="heartSrc" class="heart" @tap="toggleLikeCity"/>
-      </p>
+      </h1>
       <p class="en">{{ cityInstance.name_en }} Metro Diagram</p>
       <button class="float-btn change-city-btn" @tap="goBackHome">切换城市</button>
       <button class="float-btn share-btn" @tap="goToCityMap" v-if="!cityInstance.isForeignCity">查看地图</button>
     </div>
 
-    <RoutineQuery :cityInstance="cityInstance" v-if="!cityInstance.isForeignCity"></RoutineQuery>
+    <RoutineQuery
+      v-if="showRoutineQuery"
+      :cityInstance="cityInstance"
+    />
     <div class="img-container" @tap="previewMetroNet">
-      <img :src="HDImgSrc" class="metro-img" mode="widthFix" @load="handleHDImgLoad" v-show="HDImgLoaded">
-      <img :src="metroImgSrc" class="metro-img" mode="widthFix" @error="handleMetroImgError" v-show="!HDImgLoaded">
+      <img :src="HDMetroImg" class="metro-img" mode="widthFix" @load="handleHDImgLoad" v-show="HDImgLoaded">
+      <img :src="LDMetroImg" class="metro-img" mode="widthFix" v-show="!HDImgLoaded">
     </div>
-
     <!-- 性能问题严重 -->
     <!-- <movable-area class="img-move-area" scale-area>
       <movable-view class="img-move-view" direction="all" scale scale-value="3.5">
         <img :src="cityInstance.subway_img" :alt="cityInstance.name_zh" class="metro-img" mode="widthFix" @load="handleMetroImgLoad" @error="handleMetroImgError">
       </movable-view>
     </movable-area> -->
-
     <div class="btn-group">
       <button class="btn preview-btn" type="primary" @tap="previewMetroNet">查看高清大图</button>
       <button class="btn share-btn" open-type="share" type="primary">分享给好友</button>
     </div>
 
-    <button class="explore-btn" type="primary" @tap="exploreCity">探索{{ cityInstance.name_zh }}</button>
+    <!-- <button v-show="hasTravelData" class="explore-btn" type="primary" @tap="exploreCity">{{ cityInstance.name_zh }}旅游攻略</button> -->
 
-
+    <ad class="banner-ad" unit-id="adunit-f49055bf9e2dcbe6" />
   </div>
 </template>
 
 <script>
 import config from '@/config'
 import RoutineQuery from '@/components/RoutineQuery'
-import weiboPicMixin from '@/mixins/weiboPicMixin'
+import remoteConfigMixin from '@/mixins/remoteConfigMixin'
 
 const heartIcon = require('../../assets/images/heart.png')
 const heartActiveIcon = require('../../assets/images/heart-active.png')
 
-const WEIBO_IMGBED = 'https://ws1.sinaimg.cn'
-
 export default {
   name: '',
   props: [],
-  mixins: [weiboPicMixin],
+  mixins: [ remoteConfigMixin ],
   data() {
     return {
       heartSrc: heartIcon,
@@ -88,10 +91,10 @@ export default {
       allCities: config.allCities || [],
       cityId: '',
       cityName: '',
-      metroImgSrc: '',
-      HDImgSrc: '',
+      LDMetroImg: '', // 低清晰度图片
+      HDMetroImg: '', // 高清晰度图片
       HDImgLoaded: false,
-      wbpic: {}
+      interstitialAd: null
     }
   },
   computed: {
@@ -103,55 +106,95 @@ export default {
         }
       })
       return instance
+    },
+    showRoutineQuery() {
+      let show = true;
+      // 外国城市和台湾暂不支持路线查询
+      if (this.cityInstance.isForeignCity) {
+        show = false
+      }
+      if (this.cityInstance.keywords && this.cityInstance.keywords.indexOf('台湾') > -1) {
+        show = false
+      }
+      return show
+    },
+    hasTravelData() {
+      let cities = ['东京', '伦敦', '巴黎', '纽约', '首尔', '新加坡', '曼谷', '吉隆坡', '莫斯科', '迪拜', '伊斯坦布尔', '大阪',
+        '北京', '上海', '广州', '深圳', '香港', '南京', '重庆', '武汉', '成都', '天津', '青岛', '大连', '台北', '苏州',
+        '杭州', '郑州', '西安', '长春', '合肥', '南昌', '长沙', '昆明', '厦门', '高雄'
+      ]
+      let name = this.cityInstance.name_zh
+      return cities.indexOf(name) > -1
     }
   },
   // 获取url中的query对象，包含城市id及name
   async onLoad(query) {
-    this.wbpic = await this.getWeiboPic()
+    // this.wbpic = await this.getWeiboPic()
     this.heartSrc = heartIcon
     this.cityId = query.id || ''
     this.cityName = query.name || ''
     this.HDImgLoaded = false
-    this.metroImgSrc = this.HDImgSrc = ''
-
-    if (this.wbpic[this.cityName]) {
-      // 微博图床，速度快
-      console.log('USE WEIBO');
-      this.HDImgSrc = WEIBO_IMGBED + '/large/' + this.wbpic[this.cityName].metro_pic
-      this.metroImgSrc = WEIBO_IMGBED + '/small/' + this.wbpic[this.cityName].metro_pic
-    } else {
-      console.log('USE SMMS')
-      // 使用默认配置 SMMS IMG BED
-      this.metroImgSrc = this.cityInstance.subway_img || ''
-    }
+    this.LDMetroImg = this.HDMetroImg = ''
   },
   onShareAppMessage (options) {
     var that = this
     return {
-      title: `${this.cityName}高清地铁图`,
+      title: `${this.cityName}高清地铁线路图`,
       path: `pages/citydetail/main?id=${this.cityId}&name=${this.cityName}`,
-      imageUrl: this.HDImgSrc || config.shareImg
+      imageUrl: this.HDMetroImg || config.shareImg
     }
   },
-  mounted() {
-    // wx.showLoading({
-    //   title: '图片加载中'
-    // })
+  async mounted() {
+    // 创建插屏广告实例
+    if (wx.createInterstitialAd) {
+      this.interstitialAd = wx.createInterstitialAd({
+        adUnitId: 'adunit-4617e5a38b3e945d'
+      })
+    }
+    // 在适合的场景显示插屏广告
+    if (this.interstitialAd) {
+      this.interstitialAd.show().catch((err) => {
+        console.error(err)
+      })
+    }
+
+    wx.showLoading({
+      title: '图片加载中'
+    })
+    let cityConfig = await this.getCityConfig()
+    let city = cityConfig[this.cityName]
+    if (city && city.metro_pic) {
+      console.log('地铁图来自 JsDelivr CDN')
+      let src = ''
+      if (this.cityInstance.isForeignCity) {
+        src = config.link.JsDelivr + 'metro_net/World/' + city.metro_pic
+      } else {
+        src = config.link.JsDelivr + 'metro_net/China/' + city.metro_pic
+      }
+      this.HDMetroImg = this.LDMetroImg = src
+    } else {
+      console.log('地铁图来自 SMMS 图床')
+      this.HDMetroImg = this.LDMetroImg = this.cityInstance.subway_img || ''
+    }
+  },
+  // unload时销毁vue数据，因为mpvue中小程序返回时只销毁了Page
+  onUnload(){
+    this.cityId = ''
+    this.cityName = ''
+    this.cityInstance = { keywords: '' }
+    this.HDImgLoaded = false
+    this.LDMetroImg = this.HDMetroImg = ''
   },
   methods: {
     handleHDImgLoad(ev) {
-      console.log(`高清图片加载成功，width: ${ev.mp.detail.width}; height: ${ev.mp.detail.height}`, ev)
-      this.HDImgLoaded = true
+      console.log(`高清地铁图加载成功：width: ${ev.mp.detail.width}; height: ${ev.mp.detail.height}`)
+      setTimeout(() => {
+        this.HDImgLoaded = true
+        wx.hideLoading()
+      }, 50)
     },
     handleMetroImgLoad() {
       wx.hideLoading()
-    },
-    handleMetroImgError() {
-      wx.showToast({
-        title: '网络异常，请稍后再试',
-        icon: 'none',
-        duration: 2000
-      })
     },
     toggleLikeCity() {
       this.heartSrc = (this.heartSrc == heartIcon) ? heartActiveIcon : heartIcon
@@ -172,16 +215,14 @@ export default {
     },
     // 点击预览
     previewMetroNet() {
-      console.log(this.HDImgSrc);
-      let img = this.HDImgSrc || ''
-      // console.log('previewMetroNet: ', img)
+      let img = this.HDMetroImg || ''
       if (img && img != '') {
         wx.previewImage({
-          urls: [this.HDImgSrc || ''],
+          urls: [this.HDMetroImg || ''],
           fail: function() {
             wx.reportAnalytics('preview_img_fail', {
               city_name: this.cityInstance.name_zh || 'no_name',
-              subway_img: this.HDImgSrc || ''
+              subway_img: this.HDMetroImg || ''
             })
           }
         })

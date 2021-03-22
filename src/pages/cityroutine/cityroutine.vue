@@ -18,7 +18,8 @@
           }
           .extra-info { color: @wx-red; margin-bottom: 15rpx; }
           .desc { width: 95%; white-space: normal; word-wrap: break-word; word-break: break-all; margin-bottom: 15rpx; }
-          .share-btn { display: block; width: 180rpx; height: 70rxp; line-height: 70rpx; text-align: center; margin: 30rpx; background: @wx-blue-L; color: #fff; border-radius: 0; float: right; }
+          .option-btn { display: block; width: 180rpx; height: 70rxp; line-height: 70rpx; text-align: center; font-size: 28rpx; margin: 30rpx; margin-left: 0; background: @wx-blue-L; color: #fff; border-radius: 0; float: right; }
+          .home-btn { background: @wx-yellow; }
         }
       }
     }
@@ -57,7 +58,8 @@
             </cover-view>
             <cover-view class="extra-info">{{ route.distance }} {{ route.duration }}</cover-view>
             <cover-view class="desc" v-for="(desc, descIndex) in route.desc" :key="descIndex">{{ desc }}</cover-view>
-            <button class="share-btn" open-type="share" size="mini">分享路线</button>
+            <button class="option-btn home-btn" size="mini" @click="goBackHome">切换城市</button>
+            <button class="option-btn" open-type="share" size="mini">分享路线</button>
             <cover-view style="height: 30rpx;"></cover-view>
           </cover-view>
         </cover-view>
@@ -156,6 +158,11 @@ export default {
   },
   mounted() {},
   methods: {
+    goBackHome() {
+      wx.redirectTo({
+        url: "/pages/citylist/main"
+      })
+    },
     toggleCollapse() {
       this.collapse = !this.collapse
     },

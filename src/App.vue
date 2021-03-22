@@ -1,7 +1,7 @@
 <script>
 export default {
   onLaunch(props) {
-    console.log('app launch: ', props)
+    // console.log('app launch: ', props)
   }
 }
 </script>

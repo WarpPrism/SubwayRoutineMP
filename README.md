@@ -35,6 +35,7 @@
 - https://www.damengxiang.me/app/f059514d.html 大梦想
 - https://www.xcx.la/xiaochengxu/3728.html 小程序啦
 - http://www.qingyy.net/app/4164 轻应用商店
+- http://www.awxin.com/xiaochengxu/gongju/2019/0220/20459.html 小程序网
 
 ## 技术架构
 

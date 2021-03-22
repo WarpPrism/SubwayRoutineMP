@@ -1,13 +1,20 @@
 <style lang="less">
 @import url('../assets/styles/variable.less');
-.components-routine-query { width: 100%; height: 80rpx; margin-bottom: 7rpx; display: flex; justify-content: center; align-items: center; line-height: 78rpx; text-align: center; background: #ff0; position: relative;
-  .input { display: inline-block; width: 270rpx; height: 100%; margin: 0; border: solid 1rpx #ccc; background: #fff; }
+.components-routine-query { width: 100%; height: 80rpx; margin-bottom: 7rpx; display: flex; justify-content: center; align-items: center; line-height: 78rpx; text-align: center; position: relative; box-shadow: 1rpx 1rpx 20rpx 1rpx #ddd;
+  .input { display: inline-block; width: 270rpx; height: 100%; margin: 0; border: solid 1rpx #ccc; background: #fff; color: @wx-red; }
+  input.valid { color: @wx-green; }
+  input.invalid { color: @wx-red; }
   .exchange-btn { display: inline-block; width: 70rpx; height: 100%; border-top: solid 1rpx #ccc; border-bottom: solid 1rpx #ccc; background: #fff;
-    .icon { width: 35rpx; height: 35rpx; margin-top: 20rpx; }
+    .icon { width: 43rpx; height: 35rpx; margin-top: 20rpx; }
+    &:active { background: #cfefff; }
   }
-  .query-btn { display: inline-block; width: auto; height: 100%; background: @wx-blue-L; flex: auto; color: #fff; }
+  .query-btn { display: inline-block; width: auto; height: 100%; background: @wx-blue-L; flex: auto; color: #fff; 
+    &:active { opacity: 1; background: @wx-blue; }
+  }
   .suggestion-list { width: 270rpx; height: auto; position: absolute; background: #fff; z-index: 300; box-shadow: 2rpx 1rpx 10rpx 2rpx #ccc;
-    .item { border-bottom: solid 1px #eee; }
+    .item { border-bottom: solid 1px #ccc; 
+      &:active { background: #eee; }
+    }
   }
   .from-list { top: 101%; left: 2rpx; }
   .to-list { top: 101%; left: 340rpx; }
@@ -20,6 +27,7 @@
     <input
       type="text"
       class="from-input input"
+      :class="{'valid': fromLocation.latitude!='', 'invalid': !fromLocation.latitude }"
       placeholder="起始站"
       maxlength="35"
       v-model="fromValue"
@@ -37,6 +45,7 @@
     <input
       type="text"
       class="from-input input"
+      :class="{'valid': toLocation.latitude!='', 'invalid': !toLocation.latitude }"
       placeholder="终点站"
       maxlength="35"
       v-model="toValue"
@@ -66,7 +75,7 @@ export default {
   mixins: [],
   data() {
     return {
-      exchangeBtn: require('../assets/images/exchange.png'),
+      exchangeBtn: require('../assets/images/icon_exchange.png'),
       emoji: config.emoji,
       suggestions: [],
       autoTipType: '',
@@ -151,7 +160,6 @@ export default {
               this.suggestions.forEach(sug => {
                 sug.title = sug.title.replace('[地铁站]', '')
               })
-              console.log(this.suggestions);
             }
           },
           fail: (res) => {
@@ -214,7 +222,7 @@ export default {
     },
     blurHandler() {
       setTimeout(() => {
-        this.suggestions = []
+        // this.suggestions = []
       }, 100)
     },
     goToCityMap() {
