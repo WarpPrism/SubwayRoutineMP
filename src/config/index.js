@@ -2,7 +2,7 @@ import cities from './cities'
 
 let config = {
   allCities: cities,
-  shareTitle: '请查收，全球主要城市地铁线路图，最全最方便！',
+  shareTitle: '看这里~ 全球主要城市地铁、旅游信息，简单又好用！',
   shareImg: require('../assets/images/share.png'),
   qqMapKey: 'VEHBZ-S6A34-QTKUP-DK3HK-TLN5O-DNF5L',
   link: {

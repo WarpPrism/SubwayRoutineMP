@@ -29,10 +29,10 @@ let cities = china_cities.concat(world_cities)
 const total = cities.length
 let done = 0
 
-cities.forEach(cityName => {
+cities.forEach((cityName, index) => {
   cityName = wikiNameMap[cityName] || cityName
   let reqUrl = WikivoyageContentUrl + encodeURIComponent(cityName)
-  console.log(reqUrl)
+  // console.log(reqUrl)
   let dir0 = path.resolve(__dirname, `../static/data/wiki_original/${cityName}.html`)
   let dir1 = path.resolve(__dirname, `../static/data/wiki/${cityName}.html`)
   if (fsExistsSync(dir0)) {
@@ -40,9 +40,9 @@ cities.forEach(cityName => {
     console.log(`${cityName} 成功，进度 ${done}/${total}`)
     return
   }
-  console.log(`${cityName} 开始请求wiki旅游数据...`)
+  console.log(`${index + 1} ${cityName} 开始请求wiki旅游数据...`)
   axios.get(reqUrl, {
-    timeout: 30e3
+    timeout: 300e3
   }).then(res => {
     if (res && res.status === 200 && res.data) {
       let data = res.data

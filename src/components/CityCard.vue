@@ -12,7 +12,7 @@
 </style>
 
 <template>
-  <div class="components-city-card" @tap="navigateToCityDetail">
+  <div class="components-city-card" @tap="cityClickHandler">
     <img :src="instance.subway_logo" alt="logo" class="subway-logo">
     <div class="name-wrap">
       <p class="name name-zh">{{ instance.name_zh }}</p>
@@ -37,13 +37,43 @@ export default {
   computed: {},
   mounted() {},
   methods: {
-    navigateToCityDetail() {
+    cityClickHandler() {
       let city = this.instance
-      // 上报点击城市名
-      wx.reportAnalytics('click_city', {
-        city_name: city.name_zh || 'no_name',
-        is_foreign: city.isForeignCity ? 1 : 0
+      let type = ''
+      console.log('city :>> ', city);
+      wx.showActionSheet({
+        itemColor: '#000000',
+        itemList: ['旅游指引', '地铁查询'],
+        success: (res) => {
+          let index = res.tapIndex
+          if (index == 0) {
+            // 导航到城市旅游指南
+            type = 'travel'
+            this.navigateToCityTraveGuide()
+          } else if (index == 1) {
+            // 导航到地铁图
+            type = 'metro'
+            this.navigateToCityMetroMap()
+          }
+        },
+        complete: () => {
+          // 上报点击城市名
+          wx.reportAnalytics('click_city', {
+            city_name: city.name_zh || 'no_name',
+            is_foreign: city.isForeignCity ? 1 : 0,
+            type: type
+          })
+        }
       })
+    },
+    navigateToCityTraveGuide() {
+      let city = this.instance
+      wx.navigateTo({
+        url: `/pages/citywiki/main?id=${city.id}&name=${city.name_zh}`
+      })
+    },
+    navigateToCityMetroMap() {
+      let city = this.instance
       wx.navigateTo({
         url: `/pages/citydetail/main?id=${city.id}&name=${city.name_zh}`
       })

@@ -1,14 +1,24 @@
 <style lang="less">
 @import url('../../assets/styles/variable.less');
-.page-container { background: #eee; overflow: scroll; -webkit-overflow-scrolling: touch; padding: 10rpx;
+.page-container { background: #f0f0f0; overflow: scroll; -webkit-overflow-scrolling: touch; padding: 0;
   .banner { display: block; width: calc(750rpx - 100rpx); height: 250rpx; margin: 0 auto; }
   .share-guide { width: calc(750rpx - 100rpx); margin: 0 auto 10rpx; color: @wx-red; font-size: 26rpx; }
 
-  .ribbon-bar { width: 100%; height: 7rpx; background: linear-gradient(to right, #9ED110, #50B517, #179067, #476EAF, #9f49ac, #CC42A2, #FF3BA7, #FF5800, #FF8100, #FEAC00, #FFCC00, #EDE604); }
+  .ribbon-bar { width: 100%; height: 5rpx; background: linear-gradient(to right, #9ED110, #50B517, #179067, #476EAF, #9f49ac, #CC42A2, #FF3BA7, #FF5800, #FF8100, #FEAC00, #FFCC00, #EDE604); }
+
+  .app-menu-bar { width: 100%; height: auto; margin: 0 auto; padding: 20rpx 50rpx; display: flex; flex-direction: row; justify-content: space-between; align-items: center; background: @wx-yellow; border-bottom: solid 5rpx @wx-yellow-D;
+    .logo-container { width: 120rpx; height: 100rpx;
+      .logo { width: 100%; height: 100%; }
+    }
+    .menu-container { margin: 0 0 0 30rpx; display: flex; flex-direction: row; justify-content: flex-start; align-items: center; 
+      .menu-item { width: 100rpx; height: 60rpx; line-height: 60rpx; margin: 0 10rpx; text-align: center; font-size: 32rpx; color: #fff; background: @wx-yellow-D; overflow: visible; border-radius: 10rpx; }
+      .menu-item.active { border: solid 2rpx @wx-yellow-D;  background: @wx-yellow; }
+    }
+  }
 
   .search-section { width: calc(750rpx - 100rpx); height: 70rpx; margin: 15rpx auto 20rpx; position: relative;
     .search-input { display: inline-block; width: 490rpx; height: 100%; padding: 5rpx 20rpx; background: #fff; border: solid 1px #ddd; box-sizing: border-box; position: absolute; left: 0; }
-    .locate-btn { width: 130rpx; height: 100%; position : absolute; right: 3rpx; top: 0; background: @wx-blue; color: #fff; box-sizing: border-box; display: flex; justify-content: center; align-items: center;
+    .locate-btn { width: 130rpx; height: 100%; position : absolute; right: 3rpx; top: 0; background: @wx-blue-L; color: #fff; box-sizing: border-box; display: flex; justify-content: center; align-items: center;
       &:active { opacity: 0.8; }
       .icon { width: 38rpx; height: 38rpx; margin-right: 5rpx; }
       text { margin-top: -5rpx; }
@@ -24,15 +34,8 @@
 }
     .tab.active { color: #fefefe; background-image: linear-gradient(120deg, #89d7fe 0%, #66a6ff 100%); }
 
-    .more-function { display: inline-block; margin-left: 10rpx; color: @wx-blue; background: #fff;
-      .more-icon { display: inline-block; width: 50rpx; height: 50rpx; vertical-align: middle; }
-      text { margin-left: 5rpx; vertical-align: middle; color: @wx-blue; }
-      &:active { background: @wx-blue; color: #fff; }
-    }
-    .share-function { display: inline-block; margin-left: 11rpx; width: 120rpx; color: @wx-red; background: #fff; overflow: visible;
-      text { margin-left: 5rpx; vertical-align: middle; color: @wx-blue; }
-      &:active { background: @wx-red; color: #fff; }
-    }
+    .tab.cn-tab.active { background: @wx-yellow; }
+    .tab.en-tab.active { background: @wx-blue-L; }
   }
 
   .city-list { width: 100%; text-align: center; }
@@ -54,7 +57,18 @@
   <div class="page-container page-citylist">
     <!-- <img :src="bannerUrl" alt="" class="banner"> -->
     <!--<p class="share-guide">如果觉得小程序好用，可以转发给好友哦{{emoji.pointUp}}</p>-->
-    <div class="ribbon-bar"></div>
+    <div class="app-menu-bar">
+      <div class="logo-container">
+        <img :src="travelIcon" alt="" class="logo">
+      </div>
+      <div class="menu-container">
+        <div class="menu-item active">首页</div>
+        <div class="menu-item" @tap="goToMoreFeature">更多</div>
+        <button class="menu-item" open-type="share" type="primary">分享</button>
+      </div>
+    </div>
+    <!--<div class="ribbon-bar"></div>-->
+
 
     <div class="search-section">
       <input
@@ -75,18 +89,13 @@
     <div class="tab-bar">
       <div class="tab cn-tab" :class="{'active': activeTab == 'cn'}" v-if="ChinaCities.length > 0" @tap="clickTab('cn')">国内城市</div>
       <div class="tab en-tab" :class="{'active': activeTab == 'en'}" v-if="WorldCities.length > 0" @tap="clickTab('en')">国际城市</div>
-      <div class="tab more-function" @tap="goToMoreFeature">
-        <!--<img :src="moreIcon" alt="" class="more-icon">-->
-        更多功能
-      </div>
-      <button class="tab share-function" open-type="share" type="primary">分享</button>
     </div>
     <div class="city-list cn-list" v-show="activeTab=='cn'">
-      <CityCard v-for="city in ChinaCities" :key="city.id" :instance="city" />
+      <CityCard v-for="(city, cindex) in ChinaCities" :key="cindex" :instance="city" />
     </div>
 
     <div class="city-list en-list" v-show="activeTab=='en'">
-      <CityCard v-for="wcity in WorldCities" :key="wcity.id" :instance="wcity" />
+      <CityCard v-for="(wcity, windex) in WorldCities" :key="windex" :instance="wcity" />
     </div>
 
     <div class="empty-info" v-if="ChinaCities.length <= 0 && WorldCities.length <= 0 && searchInputValue != ''">暂无您要找的城市{{emoji.thinkingFace}}</div>
@@ -122,6 +131,7 @@ export default {
       // bannerUrl: require('../../assets/images/banner.jpg'),
       locationIcon: require('../../assets/images/location.png'),
       moreIcon: require('../../assets/images/more.png'),
+      travelIcon: require('../../assets/images/icon_travel.png'),
       preloadSrc: '',
       emoji: config.emoji,
       allCities: config.allCities || [],

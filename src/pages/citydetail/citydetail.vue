@@ -13,6 +13,10 @@
     .float-btn { width: 150rpx; height: 52rpx; line-height: 50rpx; text-align: center; position: absolute; top: 0rpx; right: 10rpx; font-weight: normal; font-size: 28rpx; background: rgba(0, 0, 0, .5); font-size: 26rpx; color: #fff; border-radius: 0; }
     .share-btn { top: 62rpx; }
   }
+  .section-title { margin: 20rpx 0; padding-left: 2.5%; font-weight: bold; font-size: 36rpx; }
+
+  .components-routine-query { margin: 0 0 40rpx; }
+
   .img-container { width: 100%; height: auto; margin: 0 0 20rpx; overflow: hidden;
     .metro-img { width: 100%; height: 520rpx; border: solid 10rpx #fff; border-radius: 7rpx; }
   }
@@ -23,11 +27,14 @@
   //     .metro-img { display: block; width: 100%; }
   //   }
   // }
+  
 
   .btn-group { width: 100%; margin: 0 0 15rpx;
     .btn { display: inline-block; width: 45%; margin: 0 2.5%; background: @wx-blue; font-size: 16px; line-height: 75rpx; }
-    .preview-btn { background: @wx-blue; }
+    .preview-btn { background: @wx-blue-L; }
     .share-btn { background: @wx-blue-L; }
+    .travel-btn { background: @wx-yellow-D; }
+    .map-btn { background: @wx-yellow-D; }
   }
   .explore-btn { width: 95%; margin: 0 auto 20rpx; line-height: 75rpx;  background-image: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%); background: @wx-red; color: #fff; text-align: center;  }
   .banner-ad { margin: 0 auto 20rpx; }
@@ -44,13 +51,14 @@
       </h1>
       <p class="en">{{ cityInstance.name_en }} Metro Diagram</p>
       <button class="float-btn change-city-btn" @tap="goBackHome">切换城市</button>
-      <button class="float-btn share-btn" @tap="goToCityMap" v-if="!cityInstance.isForeignCity">查看地图</button>
     </div>
 
+    <div class="section-title">地铁路线规划</div>
     <RoutineQuery
       v-if="showRoutineQuery"
       :cityInstance="cityInstance"
     />
+
     <div class="img-container" @tap="previewMetroNet">
       <img :src="HDMetroImg" class="metro-img" mode="widthFix" @load="handleHDImgLoad" v-show="HDImgLoaded">
       <img :src="LDMetroImg" class="metro-img" mode="widthFix" v-show="!HDImgLoaded">
@@ -66,7 +74,10 @@
       <button class="btn share-btn" open-type="share" type="primary">分享给好友</button>
     </div>
 
-    <!-- <button v-show="hasTravelData" class="explore-btn" type="primary" @tap="exploreCity">{{ cityInstance.name_zh }}旅游攻略</button> -->
+    <div class="btn-group">
+      <button class="btn travel-btn" type="primary" @tap="exploreCity">{{ cityInstance.name_zh }}旅游攻略</button>
+      <button v-if="!cityInstance.isForeignCity" class="btn map-btn" type="primary" @tap="goToCityMap">查看城市地图</button>
+    </div>
 
     <ad class="banner-ad" unit-id="adunit-f49055bf9e2dcbe6" />
   </div>
@@ -117,14 +128,6 @@ export default {
         show = false
       }
       return show
-    },
-    hasTravelData() {
-      let cities = ['东京', '伦敦', '巴黎', '纽约', '首尔', '新加坡', '曼谷', '吉隆坡', '莫斯科', '迪拜', '伊斯坦布尔', '大阪',
-        '北京', '上海', '广州', '深圳', '香港', '南京', '重庆', '武汉', '成都', '天津', '青岛', '大连', '台北', '苏州',
-        '杭州', '郑州', '西安', '长春', '合肥', '南昌', '长沙', '昆明', '厦门', '高雄'
-      ]
-      let name = this.cityInstance.name_zh
-      return cities.indexOf(name) > -1
     }
   },
   // 获取url中的query对象，包含城市id及name
@@ -229,7 +232,7 @@ export default {
       }
     },
     goBackHome() {
-      wx.navigateTo({
+      wx.redirectTo({
         url: "/pages/citylist/main"
       })
     },

@@ -2,7 +2,7 @@
 @import url('../../assets/styles/variable.less');
 
 .page-container { height: auto; padding: 20rpx 35rpx; background:#eee; overflow-x: hidden; overflow-y: scroll; -webkit-overflow-scrolling: touch;
-  .page-title { height: 150rpx; padding-top: 20rpx; font-weight: bold; font-size: 46rpx; margin-bottom: 0rpx; padding-left: 2.5%; background: @wx-red; color: #fefefe; position: relative;
+  .page-title { height: 150rpx; padding-top: 20rpx; font-weight: bold; font-size: 46rpx; margin-bottom: 0rpx; padding-left: 2.5%; background: @wx-yellow; color: #fefefe; position: relative;
     .en { font-weight: normal; font-size: 28rpx; }
     .float-btn { width: 150rpx; height: 52rpx; line-height: 50rpx; text-align: center; position: absolute; top: 20rpx; right: 20rpx; font-weight: normal; font-size: 28rpx; background: rgba(0, 0, 0, .5); font-size: 26rpx; color: #fff; border-radius: 0; }
     .share-btn { top: 82rpx; }
@@ -81,7 +81,7 @@ export default {
   },
 
   mounted() {
-    this.fetchWikiDataFromGitee()
+    this.fetchWikiData()
 
     // 创建插屏广告实例
     if (wx.createInterstitialAd) {
@@ -105,15 +105,16 @@ export default {
       //   delta: 2
       // })
     },
-    fetchWikiDataFromGitee() {
+    // 获取城市旅游数据
+    fetchWikiData() {
       wx.showLoading({
         title: '数据获取中',
         mask: true
       })
       this.cityWikiHtml = ''
       this.wikiDataStatus = 'LOADING'
-      // const Gitee_URL = 'https://gitee.com/crystalworld/public_data/raw/master/wikivoyage'
-      const Gitee_URL = 'https://cdn.jsdelivr.net/gh/WarpPrism/SubwayRoutineMP@latest'
+      // const Base_Url = 'https://gitee.com/crystalworld/public_data/raw/master/wikivoyage'
+      const Base_Url = 'https://cdn.jsdelivr.net/gh/WarpPrism/SubwayRoutineMP@latest'
       const wikiNameMap = {
         '东京': '東京',
         '纽约': '紐約',
@@ -123,13 +124,23 @@ export default {
       let queryName = this.cityInstance.name_zh
       queryName = wikiNameMap[queryName] || queryName
       wx.request({
-        url: `${Gitee_URL}/travel/${queryName}.html`,
+        url: `${Base_Url}/travel/${queryName}.html`,
         method: 'GET',
         success: (res) => {
           if (res && res.data) {
             let htmlContent = res.data
-            this.cityWikiHtml = htmlContent
-            this.wikiDataStatus = 'SUCCESS'
+            if (res.statusCode < 400) {
+              this.cityWikiHtml = htmlContent
+              this.wikiDataStatus = 'SUCCESS'
+            } else {
+              this.cityWikiHtml = '<h1 style="margin: 50px auto;">暂无数据</h1>'
+              this.wikiDataStatus = 'ERROR'
+              wx.showToast({
+                title: '暂无相关旅游数据',
+                icon: 'none',
+                duration: 2000
+              })
+            }
             setTimeout(() => {
               wx.hideLoading()
             }, 100)

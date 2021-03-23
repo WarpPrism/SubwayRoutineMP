@@ -88,13 +88,13 @@
       </div>
       <div class="right">wxad716b9e75e773b5</div>
     </div>
-    <div class="section">
+    <!--<div class="section">
       <div class="left">
         <img :src="emailIcon" alt="" class="icon">
         <text class="text">联系方式</text>
       </div>
       <div class="right">zhoujh29@mail2.sysu.edu.cn</div>
-    </div>
+    </div>-->
   </div>
 </template>
 
