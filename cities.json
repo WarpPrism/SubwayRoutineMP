@@ -1,263 +1,280 @@
 {
+  "图片来源": "地铁图小程序 MetroMan",
   "澳门": {
     "metro_pic": "aomen.jpg",
-    "old_metro_pic": "",
+    "metroman_pic": "routemap_am_cn.png",
     "city_pic": ""
   },
   "北京": {
     "metro_pic": "beijing.jpg",
-    "old_metro_pic": "",
+    "metroman_pic": "routemap_bj_cn.png",
     "city_pic": ""
   },
   "长沙": {
     "metro_pic": "changsha.jpg",
-    "old_metro_pic": "",
+    "metroman_pic": "routemap_cs_cn.png",
     "city_pic": ""
   },
   "长春": {
     "metro_pic": "changchun.jpg",
-    "old_metro_pic": "",
+    "metroman_pic": "routemap_cc_cn.png",
     "city_pic": ""
   },
   "常州": {
     "metro_pic": "changzhou.jpg",
-    "old_metro_pic": "",
+    "metroman_pic": "routemap_cz_cn.png",
     "city_pic": ""
   },
   "成都": {
     "metro_pic": "chengdu.jpg",
-    "old_metro_pic": "",
+    "metroman_pic": "routemap_cd_cn.png",
     "city_pic": ""
   },
   "大连": {
     "metro_pic": "dalian.jpg",
-    "old_metro_pic": "",
+    "metroman_pic": "routemap_dl_cn.png",
     "city_pic": ""
   },
   "东莞": {
     "metro_pic": "dongguan.jpg",
-    "old_metro_pic": "",
+    "metroman_pic": "routemap_dg_cn.png",
     "city_pic": ""
   },
   "广州": {
     "metro_pic": "guangzhou.jpg",
-    "old_metro_pic": "",
+    "metroman_pic": "routemap_gz_cn.png",
     "city_pic": ""
   },
   "重庆": {
     "metro_pic": "chongqing.jpg",
-    "old_metro_pic": "",
+    "metroman_pic": "routemap_cq_cn.png",
     "city_pic": ""
   },
   "福州": {
     "metro_pic": "fuzhou.jpg",
-    "old_metro_pic": "",
+    "metroman_pic": "routemap_fz_cn.png",
     "city_pic": ""
   },
   "贵阳": {
     "metro_pic": "guiyang.jpg",
-    "old_metro_pic": "",
+    "metroman_pic": "routemap_gy_cn.png",
     "city_pic": ""
   },
   "高雄": {
     "metro_pic": "gaoxiong.jpg",
-    "old_metro_pic": "",
+    "metroman_pic": "routemap_gx_cn.png",
     "city_pic": ""
   },
   "杭州": {
     "metro_pic": "hangzhou.jpg",
-    "old_metro_pic": "",
+    "metroman_pic": "routemap_hz_cn.png",
     "city_pic": ""
   },
   "合肥": {
     "metro_pic": "hefei.jpg",
-    "old_metro_pic": "",
+    "metroman_pic": "routemap_hf_cn.png",
     "city_pic": ""
   },
   "呼和浩特": {
     "metro_pic": "huhehaote.jpg",
-    "old_metro_pic": "",
+    "metroman_pic": "routemap_hh_cn.png",
     "city_pic": ""
   },
   "济南": {
     "metro_pic": "jinan.jpg",
-    "old_metro_pic": "",
+    "metroman_pic": "routemap_jn_cn.png",
     "city_pic": ""
   },
   "昆明": {
     "metro_pic": "kunming.jpg",
-    "old_metro_pic": "",
+    "metroman_pic": "routemap_km_cn.png",
     "city_pic": ""
   },
   "兰州": {
     "metro_pic": "lanzhou.jpg",
-    "old_metro_pic": "",
+    "metroman_pic": "routemap_lz_cn.png",
     "city_pic": ""
   },
   "南京": {
     "metro_pic": "nanjing.jpg",
-    "old_metro_pic": "",
+    "metroman_pic": "routemap_nj_cn.png",
     "city_pic": ""
   },
   "南昌": {
     "metro_pic": "nanchang.jpg",
-    "old_metro_pic": "",
+    "metroman_pic": "routemap_nc_cn.png",
     "city_pic": ""
   },
   "南宁": {
     "metro_pic": "nanning.jpg",
-    "old_metro_pic": "",
+    "metroman_pic": "routemap_nn_cn.png",
     "city_pic": ""
   },
   "宁波": {
     "metro_pic": "ningbo.jpg",
-    "old_metro_pic": "",
+    "metroman_pic": "routemap_nb_cn.png",
     "city_pic": ""
   },
   "台北": {
     "metro_pic": "taibei.jpg",
-    "old_metro_pic": "",
+    "metroman_pic": "routemap_tb_cn.png",
     "city_pic": ""
   },
   "青岛": {
     "metro_pic": "qingdao.jpg",
-    "old_metro_pic": "",
+    "metroman_pic": "routemap_qd_cn.png",
     "city_pic": ""
   },
   "上海": {
     "metro_pic": "shanghai.jpg",
-    "old_metro_pic": "",
+    "metroman_pic": "routemap_sh_cn.png",
     "city_pic": ""
   },
   "深圳": {
     "metro_pic": "shenzhen.jpg",
-    "old_metro_pic": "",
+    "metroman_pic": "routemap_sz_cn.png",
     "city_pic": ""
   },
   "石家庄": {
     "metro_pic": "shijiazhuang.jpg",
-    "old_metro_pic": "",
+    "metroman_pic": "routemap_sj_cn.png",
     "city_pic": ""
   },
   "沈阳": {
     "metro_pic": "shenyang.jpg",
-    "old_metro_pic": "",
+    "metroman_pic": "routemap_sy_cn.png",
     "city_pic": ""
   },
   "苏州": {
     "metro_pic": "suzhou.jpg",
-    "old_metro_pic": "",
+    "metroman_pic": "routemap_sz_cn.png",
     "city_pic": ""
   },
   "天津": {
     "metro_pic": "tianjin.jpg",
-    "old_metro_pic": "",
+    "metroman_pic": "routemap_tj_cn.png",
     "city_pic": ""
   },
   "武汉": {
     "metro_pic": "wuhan.jpg",
-    "old_metro_pic": "",
+    "metroman_pic": "routemap_wh_cn.png",
     "city_pic": ""
   },
   "温州": {
     "metro_pic": "wenzhou.jpg",
-    "old_metro_pic": "",
+    "metroman_pic": "routemap_wz_cn.png",
     "city_pic": ""
   },
   "无锡": {
     "metro_pic": "wuxi.jpg",
-    "old_metro_pic": "",
+    "metroman_pic": "routemap_wx_cn.png",
     "city_pic": ""
   },
   "乌鲁木齐": {
     "metro_pic": "wulumuqi.jpg",
-    "old_metro_pic": "",
+    "metroman_pic": "routemap_wl_cn.png",
     "city_pic": ""
   },
   "西安": {
     "metro_pic": "xian.jpg",
-    "old_metro_pic": "",
+    "metroman_pic": "routemap_xa_cn.png",
     "city_pic": ""
   },
   "厦门": {
     "metro_pic": "xiamen.jpg",
-    "old_metro_pic": "",
+    "metroman_pic": "routemap_xm_cn.png",
     "city_pic": ""
   },
   "徐州": {
     "metro_pic": "xuzhou.jpg",
-    "old_metro_pic": "",
+    "metroman_pic": "routemap_xz_cn.png",
+    "city_pic": ""
+  },
+  "哈尔滨": {
+    "metro_pic": "haerbin.jpg",
+    "metroman_pic": "routemap_hb_cn.png",
     "city_pic": ""
   },
   "香港": {
     "metro_pic": "xianggang.jpg",
-    "old_metro_pic": "",
+    "metroman_pic": "routemap_xg_cn.png",
     "city_pic": ""
   },
   "郑州": {
     "metro_pic": "zhengzhou.jpg",
-    "old_metro_pic": "",
+    "metroman_pic": "routemap_zz_cn.png",
     "city_pic": ""
   },
+  "台中": {
+    "metro_pic": "taizhong.jpg",
+    "metroman_pic": "routemap_tc_cn.png",
+    "city_pic": ""
+  },
+  "太原": {
+    "metro_pic": "taiyuan.jpg",
+    "metroman_pic": "routemap_ty_cn.png",
+    "city_pic": ""
+  },
+  
 
   "伦敦": {
     "metro_pic": "london.gif",
-    "old_metro_pic": "london.gif",
+    "metroman_pic": "",
     "city_pic": ""
   },
   "曼谷": {
     "metro_pic": "bangkok.jpeg",
-    "old_metro_pic": "bangkok.jpeg",
+    "metroman_pic": "",
     "city_pic": ""
   },
   "伊斯坦布尔": {
     "metro_pic": "istanbul.png",
-    "old_metro_pic": "istanbul.png",
+    "metroman_pic": "",
     "city_pic": ""
   },
   "纽约": {
     "metro_pic": "new_york.gif",
-    "old_metro_pic": "new_york.gif",
+    "metroman_pic": "",
     "city_pic": ""
   },
   "新加坡": {
     "metro_pic": "singapore.jpg",
-    "old_metro_pic": "singapore.jpg",
+    "metroman_pic": "",
     "city_pic": ""
   },
   "吉隆坡": {
     "metro_pic": "kuala_lumpur.png",
-    "old_metro_pic": "kuala_lumpur.png",
+    "metroman_pic": "",
     "city_pic": ""
   },
   "迪拜": {
     "metro_pic": "dubai.jpg",
-    "old_metro_pic": "dubai.jpg",
+    "metroman_pic": "",
     "city_pic": ""
   },
   "大阪": {
     "metro_pic": "osaka.gif",
-    "old_metro_pic": "osaka.gif",
+    "metroman_pic": "",
     "city_pic": ""
   },
   "巴黎": {
     "metro_pic": "paris.gif",
-    "old_metro_pic": "paris.gif",
+    "metroman_pic": "",
     "city_pic": ""
   },
   "莫斯科": {
     "metro_pic": "moscow.jpg",
-    "old_metro_pic": "moscow.jpg",
+    "metroman_pic": "",
     "city_pic": ""
   },
   "东京": {
     "metro_pic": "tokyo.jpg",
-    "old_metro_pic": "tokyo.jpg",
+    "metroman_pic": "",
     "city_pic": ""
   },
   "首尔": {
     "metro_pic": "seoul.jpg",
-    "old_metro_pic": "seoul.jpg",
+    "metroman_pic": "",
     "city_pic": ""
   }
 }
