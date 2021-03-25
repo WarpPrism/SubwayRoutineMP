@@ -1,4 +1,4 @@
-import config from '@/config'
+import Config from '@/config'
 const Local_Config_Key = 'cities_config'
 
 export default {
@@ -13,7 +13,7 @@ export default {
     fetchRemoteConfig() {
       return new Promise((resolve, reject) => {
         wx.request({
-          url: `${config.link.JsDelivr}/cities.json`,
+          url: `${Config.link.JsDelivr}cities.json`,
           method: 'GET',
           success: (res) => {
             if (res && res.data) {

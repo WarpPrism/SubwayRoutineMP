@@ -44,6 +44,8 @@
       <div class="close-btn" @tap="hideModal">我再考虑一下</div>
     </div>
 
+    <AppMenuBar :active-index="1" />
+
     <div class="section-title">更多功能</div>
     <div class="section" @tap="previewHistory">
       <div class="left">
@@ -100,6 +102,8 @@
 
 <script>
 import config from '@/config'
+
+import AppMenuBar from '@/components/AppMenuBar'
 
 export default {
   name: 'MoreFeature',
@@ -170,6 +174,8 @@ export default {
     }
   },
   watch: {},
-  components: {}
+  components: {
+    AppMenuBar
+  }
 }
 </script>

@@ -1,13 +1,14 @@
 <style lang="less">
 @import url('../../assets/styles/variable.less');
 
-.page-container { height: auto; padding: 20rpx 35rpx; background:#eee; overflow-x: hidden; overflow-y: scroll; -webkit-overflow-scrolling: touch;
+.page-container { height: auto; padding: 20rpx 20rpx; background:#eee; overflow-x: scroll; overflow-y: scroll; -webkit-overflow-scrolling: touch;
   .page-title { height: 150rpx; padding-top: 20rpx; font-weight: bold; font-size: 46rpx; margin-bottom: 0rpx; padding-left: 2.5%; background: @wx-yellow; color: #fefefe; position: relative;
     .en { font-weight: normal; font-size: 28rpx; }
     .float-btn { width: 150rpx; height: 52rpx; line-height: 50rpx; text-align: center; position: absolute; top: 20rpx; right: 20rpx; font-weight: normal; font-size: 28rpx; background: rgba(0, 0, 0, .5); font-size: 26rpx; color: #fff; border-radius: 0; }
     .share-btn { top: 82rpx; }
   }
-  .wiki-content { display: block; width: 100%; height: auto; margin-top: -26rpx; margin-bottom: 30rpx; overflow-x: hidden; }
+  .wiki-read-tip { margin: 10rpx auto; font-size: 28rpx; color: @wx-blue-L; }
+  .wiki-content { display: block; width: 100%; height: auto; margin-top: 0rpx; margin-bottom: 30rpx; overflow: scroll; }
 
   .scroll-to-top { height: 90rpx; width: 90rpx; position: fixed; bottom: 50rpx; right: 30rpx; background: rgba(0,0,0,.5);  border-radius: 50%;
     img { display: block; width: 60%; height: 60%; margin: 20rpx auto 0; }
@@ -24,14 +25,14 @@
       <button class="float-btn share-btn" open-type="share">分享好友</button>
     </div>
 
-    <p style="font-size:22rpx;">以下内容来自维基导游(https://zh.wikivoyage.org)，仅供查阅参考</p>
+    <p class="wiki-read-tip">以下内容来自维基导游 (https://zh.wikivoyage.org) ，仅供查阅参考</p>
 
     <rich-text class="wiki-content" v-html="cityWikiHtml"></rich-text>
 
-    <p style="font-size:30rpx; color: #d84e43; margin-bottom: 20rpx;" >如对此词条感兴趣，可前往维基导游(https://zh.wikivoyage.org/{{ cityInstance.name_zh }})进行查看和编辑</p>
+    <!--<p style="font-size:30rpx; color: #d84e43; margin-bottom: 20rpx;" >如对此词条感兴趣，可前往维基导游(https://zh.wikivoyage.org/{{ cityInstance.name_zh }})进行查看和编辑</p>-->
 
-    <div class="scroll-to-top">
-      <img :src="scrollToTopIcon" @tap="scrollToTop" />
+    <div class="scroll-to-top" @tap="scrollToTop">
+      <img :src="scrollToTopIcon" />
     </div>
   </div>
 </template>

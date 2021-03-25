@@ -166,17 +166,17 @@ export default {
     })
     let cityConfig = await this.getCityConfig()
     let city = cityConfig[this.cityName]
-    if (city && city.metro_pic) {
-      console.log('地铁图来自 JsDelivr CDN')
+    if (city) {
       let src = ''
       if (this.cityInstance.isForeignCity) {
         src = config.link.JsDelivr + 'metro_net/World/' + city.metro_pic
       } else {
-        src = config.link.JsDelivr + 'metro_net/China/' + city.metro_pic
+        // src = config.link.JsDelivr + 'metro_net/China/' + city.metro_pic
+        src = config.link.MetroMan + 'metro/' + city.metroman_pic
+        console.log('city :>> ', city);
       }
       this.HDMetroImg = this.LDMetroImg = src
     } else {
-      console.log('地铁图来自 SMMS 图床')
       this.HDMetroImg = this.LDMetroImg = this.cityInstance.subway_img || ''
     }
   },

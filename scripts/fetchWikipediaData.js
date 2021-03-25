@@ -5,58 +5,62 @@ const fs = require('fs')
 const path = require('path')
 const axios = require('axios')
 
-const WikipediaMobile = 'https://zh.m.wikipedia.org/w/api.php'
+// const WikipediaMobile = 'https://zh.m.wikipedia.org/w/api.php'
 const WikipediaPC = 'https://zh.wikipedia.org/w/api.php'
 
-const WikipediaContentUrl = `${WikipediaPC}?action=query&format=json&formatversion=2&prop=revisions&rvprop=content&titles=`
+let WikipediaContentUrl = `${WikipediaPC}?action=query&format=json&formatversion=2&prop=revisions&rvprop=content&rvslots=*&titles=`
 
-const wikiNameMap = {
+WikipediaContentUrl = `${WikipediaPC}?action=parse&format=json&mobileformat=true&_t=${+new Date()}&page=`
+
+const WikiNameMap = {
   '东京': '東京',
   '纽约': '紐約',
   '首尔': '首爾',
-  '台北': '臺北'
+  '台北': '臺北',
+  '澳门': '澳門'
 }
-let cities = ['东京', '伦敦', '巴黎', '纽约', '首尔', '新加坡', '曼谷', '吉隆坡', '莫斯科', '迪拜', '伊斯坦布尔', '大阪',
-  '北京', '上海', '广州', '深圳', '香港', '南京', '重庆', '武汉', '成都', '天津', '青岛', '大连', '台北', '苏州',
-  '杭州', '郑州', '西安', '长春', '合肥', '南昌'
+let china_cities = [
+  '北京', '上海', '广州', '深圳', '香港', '澳门', '南京', '重庆', '武汉', '成都', '天津', '青岛', '大连', '苏州',
+  '杭州', '郑州', '西安', '长春', '合肥', '南昌', '长沙', '昆明', '厦门', '常州', '呼和浩特', '哈尔滨', '兰州',
+  '宁波', '济南', '珠海', '佛山', '洛阳', '开封', '南阳', '台北', '高雄'
 ]
 
-cities = ['广州市']
-const total = cities.length
+let world_cities = [
+  '东京', '伦敦', '巴黎', '纽约', '首尔', '新加坡', '曼谷', '吉隆坡', '莫斯科', '迪拜', '伊斯坦布尔', '大阪',
+]
+
+let cities = china_cities.concat(world_cities)
+
+let total = cities.length
 let done = 0
 
-cities.forEach(cityName => {
-  cityName = wikiNameMap[cityName] || cityName
+cities.forEach((cityName, index) => {
+  cityName = WikiNameMap[cityName] || cityName
   let reqUrl = WikipediaContentUrl + encodeURIComponent(cityName)
-  let writeDir = path.resolve(__dirname, `../wiki_new/${cityName}.html`)
-  // if (fsExistsSync(writeDir)) {
-  //   done++
-  //   console.log(`${cityName} 成功，进度 ${done}/${total}`)
-  //   return
-  // }
-  console.log(`${cityName} 开始请求wiki旅游数据...`)
-  console.log(`${cityName} ${reqUrl}`)
+  // console.log(reqUrl)
+  let dir0 = path.resolve(__dirname, `../static/data/wikipedia_original/${cityName}.html`)
+  // let dir1 = path.resolve(__dirname, `../static/data/wiki/${cityName}.html`)
+  if (fsExistsSync(dir0)) {
+    done++
+    console.log(`${cityName} 成功，进度 ${done}/${total}`)
+    return
+  }
+  console.log(`${index + 1} ${cityName} 开始请求wiki旅游数据...`)
   axios.get(reqUrl, {
-    timeout: 0,
-    // proxy: {
-    //   host: '127.0.0.1',
-    //   port: 1081
-    // },
-    header: {
-      'Accept-Encoding': 'gzip'
-    }
+    timeout: 30e3
   }).then(res => {
-    console.log(res);
-    // if (res && res.status === 200 && res.data) {
-    //   let data = res.data
-    //   let htmlContent = data.parse.text['*']
-    //   // htmlContent = fixWikiHtml(htmlContent)
-    //   fs.writeFileSync(writeDir, htmlContent)
-    //   done++
-    //   console.log(`${cityName} 成功，进度 ${done}/${total}`)
-    // }
+    if (res && res.status === 200 && res.data) {
+      let data = res.data
+      let htmlContent = data.parse.text['*']
+      fs.writeFileSync(dir0, htmlContent)
+
+      // htmlContent = fixWikiHtml(htmlContent)
+      // fs.writeFileSync(dir1, htmlContent)
+      done++
+      console.log(`${cityName} 成功，进度 ${done}/${total}`)
+    }
   }).catch(e => {
-    console.log(`${cityName} 请求失败`, e)
+    console.log(`${cityName} 请求失败`, e.code)
   })
 })
 
@@ -102,3 +106,4 @@ function fsExistsSync(path) {
   }
   return true
 }
+

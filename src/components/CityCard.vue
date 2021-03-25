@@ -2,7 +2,7 @@
 @import url('../assets/styles/variable.less');
 // box-shadow: 1px 1px 3px 1px #ddd;
 .components-city-card { width: 195rpx; height: 195rpx; margin: 15rpx 2%; text-align: center; background: #fff; position: relative; display: inline-block; letter-spacing: normal;
-  &:active { opacity: .7; outline: solid 2rpx @wx-blue-L; }
+  &.active { opacity: .7; outline: solid 2rpx @wx-blue-L; }
   .subway-logo { width: 75rpx; height: 75rpx; position: absolute; top: 20rpx; left: 50%; transform: translateX(-50%); }
   .name-wrap { width: 100%; position: absolute; bottom: 20rpx; left: 0;
     .name-zh { color: #000; font-size: 36rpx; }
@@ -12,7 +12,7 @@
 </style>
 
 <template>
-  <div class="components-city-card" @tap="cityClickHandler">
+  <div class="components-city-card" hover-class="active" @tap="cityClickHandler">
     <img :src="instance.subway_logo" alt="logo" class="subway-logo">
     <div class="name-wrap">
       <p class="name name-zh">{{ instance.name_zh }}</p>
