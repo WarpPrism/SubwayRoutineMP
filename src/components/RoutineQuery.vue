@@ -1,18 +1,18 @@
 <style lang="less">
 @import url('../assets/styles/variable.less');
-.components-routine-query { width: 100%; height: 80rpx; margin-bottom: 7rpx; display: flex; justify-content: center; align-items: center; line-height: 78rpx; text-align: center; position: relative; box-shadow: 1rpx 1rpx 20rpx 1rpx #ddd;
-  .input { display: inline-block; width: 270rpx; height: 100%; margin: 0; border: solid 1rpx #ccc; background: #fff; color: @wx-red; }
+.components-routine-query { width: 100%; height: 80rpx; margin-bottom: 7rpx; display: flex; justify-content: center; align-items: center; line-height: 78rpx; text-align: center; position: relative; box-shadow: 1rpx 1rpx 10rpx 1rpx #eee;
+  .input { display: inline-block; width: 270rpx; height: 100%; margin: 0; border: solid 1rpx #ddd; background: #fff; color: @wx-red; }
   input.valid { color: @wx-green; }
   input.invalid { color: @wx-red; }
-  .exchange-btn { display: inline-block; width: 70rpx; height: 100%; border-top: solid 1rpx #ccc; border-bottom: solid 1rpx #ccc; background: #fff;
+  .exchange-btn { display: inline-block; width: 70rpx; height: 100%; border-top: solid 1rpx #ddd; border-bottom: solid 1rpx #ddd; background: #fff;
     .icon { width: 43rpx; height: 35rpx; margin-top: 20rpx; }
     &:active { background: #cfefff; }
   }
   .query-btn { display: inline-block; width: auto; height: 100%; background: @wx-blue-L; flex: auto; color: #fff; 
     &:active { opacity: 1; background: @wx-blue; }
   }
-  .suggestion-list { width: 270rpx; height: auto; position: absolute; background: #fff; z-index: 300; box-shadow: 2rpx 1rpx 10rpx 2rpx #ccc;
-    .item { border-bottom: solid 1px #ccc; 
+  .suggestion-list { width: 270rpx; height: auto; position: absolute; background: #fff; z-index: 300; box-shadow: 2rpx 1rpx 10rpx 2rpx #ddd;
+    .item { border-bottom: solid 1px #ddd; 
       &:active { background: #eee; }
     }
   }
@@ -28,9 +28,9 @@
       type="text"
       class="from-input input"
       :class="{'valid': fromLocation.latitude!='', 'invalid': !fromLocation.latitude }"
-      placeholder="起始站"
-      maxlength="35"
       v-model="fromValue"
+      placeholder="起始站"
+      maxlength="100"
       @input="autoTipLocation($event, 'from')"
       @blur="blurHandler"
     >
@@ -46,14 +46,14 @@
       type="text"
       class="from-input input"
       :class="{'valid': toLocation.latitude!='', 'invalid': !toLocation.latitude }"
-      placeholder="终点站"
-      maxlength="35"
       v-model="toValue"
+      placeholder="终点站"
+      maxlength="100"
       @input="autoTipLocation($event, 'to')"
       @blur="blurHandler"
     >
     <div class="suggestion-list to-list" v-show="autoTipType == 'to'">
-      <div class="item" v-for="(sug, index) in suggestions" :key="index" @tap="changeToLocation(sug)">
+      <div class="item" v-for="(sug, index) in suggestions" :key="index" @tap.stop="changeToLocation(sug)">
         {{ sug.title }}
       </div>
     </div>
@@ -221,9 +221,8 @@ export default {
       })
     },
     blurHandler() {
-      setTimeout(() => {
-        // this.suggestions = []
-      }, 100)
+      // 隐藏搜索列表
+      this.autoTipType = ''
     },
     goToCityMap() {
       wx.navigateTo({

@@ -130,7 +130,7 @@ export default {
     let fromRemote = true
     this.resetCities()
     // 强制同步远端更新
-    this.getCityConfig(true)
+    this.getCityConfig(fromRemote)
   },
   onShareAppMessage (options) {
     var that = this

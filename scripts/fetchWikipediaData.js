@@ -10,7 +10,7 @@ const WikipediaPC = 'https://zh.wikipedia.org/w/api.php'
 
 let WikipediaContentUrl = `${WikipediaPC}?action=query&format=json&formatversion=2&prop=revisions&rvprop=content&rvslots=*&titles=`
 
-WikipediaContentUrl = `${WikipediaPC}?action=parse&format=json&mobileformat=true&_t=${+new Date()}&page=`
+WikipediaContentUrl = `${WikipediaPC}?action=parse&format=json&mobileformat=true&page=`
 
 const WikiNameMap = {
   '东京': '東京',
@@ -20,13 +20,13 @@ const WikiNameMap = {
   '澳门': '澳門'
 }
 let china_cities = [
-  '北京', '上海', '广州', '深圳', '香港', '澳门', '南京', '重庆', '武汉', '成都', '天津', '青岛', '大连', '苏州',
-  '杭州', '郑州', '西安', '长春', '合肥', '南昌', '长沙', '昆明', '厦门', '常州', '呼和浩特', '哈尔滨', '兰州',
-  '宁波', '济南', '珠海', '佛山', '洛阳', '开封', '南阳', '台北', '高雄'
+  '北京市', '上海市', '广州市', '深圳市', '香港市', '澳门市', '南京市', '重庆市', '武汉市', '成都市', '天津市', '青岛市', '大连市', '苏州市',
+  '杭州市', '郑州市', '西安市', '长春市', '合肥市', '南昌市', '长沙市', '昆明市', '厦门市', '常州市', '呼和浩特市', '哈尔滨市', '兰州市',
+  '宁波市', '济南市', '珠海市', '佛山市', '洛阳市', '开封市', '南阳市', '台北市', '高雄市'
 ]
 
 let world_cities = [
-  '东京', '伦敦', '巴黎', '纽约', '首尔', '新加坡', '曼谷', '吉隆坡', '莫斯科', '迪拜', '伊斯坦布尔', '大阪',
+  '东京市', '伦敦市', '巴黎市', '纽约市', '首尔市', '新加坡市', '曼谷市', '吉隆坡市', '莫斯科市', '迪拜市', '伊斯坦布尔市', '大阪市',
 ]
 
 let cities = china_cities.concat(world_cities)

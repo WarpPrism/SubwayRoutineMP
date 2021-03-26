@@ -39,7 +39,7 @@
         <div>1、以管理员身份登录公众号后台</div>
         <div>2、小程序管理-添加-关联小程序</div>
         <div>3、输入appid <span class="em">wxad716b9e75e773b5</span></div>
-        <div>4、提交关联申请，1-2天内通过~</div>
+        <div>4、点击关联即可</div>
       </div>
       <div class="close-btn" @tap="hideModal">我再考虑一下</div>
     </div>
@@ -61,6 +61,7 @@
       </div>
       <div class="right">高清大图</div>
     </div>
+    <!--
     <div class="section-title">为你推荐</div>
     <div class="section recommend-section" @tap="previewRailFanQr">
       <img :src="railFanAvatarSrc" alt="" class="avatar">
@@ -74,6 +75,7 @@
       <div class="op-btn" @tap="previewCsandQr">查看详情</div>
       <div class="desc">1、英语精读&翻译  2、算法，前端开发，前端攻城师进阶之路。</div>
     </div>
+    -->
 
     <div class="section-title">关于</div>
     <div class="section" @tap="readUserGuide">
@@ -117,6 +119,7 @@ export default {
       csandQrSrc: 'https://i.loli.net/2019/03/17/5c8dd532e9819.jpg',
       railFanAvatarSrc: 'https://i.loli.net/2019/04/07/5ca9d11fe73b7.jpg',
       railFanQrSrc: 'https://i.loli.net/2019/04/07/5ca9d1212db3d.jpg',
+      pianoAvatarSrc: 'https://www.autopiano.cn/favicon.ico',
       movieIcon: require('../../assets/images/icon_movie.png'),
       copyIcon: require('../../assets/images/icon_copy.png'),
       fileIcon: require('../../assets/images/icon_file.png'),

@@ -13,7 +13,7 @@
     .float-btn { width: 150rpx; height: 52rpx; line-height: 50rpx; text-align: center; position: absolute; top: 0rpx; right: 10rpx; font-weight: normal; font-size: 28rpx; background: rgba(0, 0, 0, .5); font-size: 26rpx; color: #fff; border-radius: 0; }
     .share-btn { top: 62rpx; }
   }
-  .section-title { margin: 20rpx 0; padding-left: 2.5%; font-weight: bold; font-size: 36rpx; }
+  .section-title { margin: 20rpx 0; padding-left: 2.5%; font-weight: bold; font-size: 38rpx; }
 
   .components-routine-query { margin: 0 0 40rpx; }
 
@@ -53,7 +53,7 @@
       <button class="float-btn change-city-btn" @tap="goBackHome">切换城市</button>
     </div>
 
-    <div class="section-title">地铁路线规划</div>
+    <div v-if="showRoutineQuery" class="section-title">地铁路线规划</div>
     <RoutineQuery
       v-if="showRoutineQuery"
       :cityInstance="cityInstance"
@@ -97,7 +97,7 @@ export default {
   mixins: [ remoteConfigMixin ],
   data() {
     return {
-      heartSrc: heartIcon,
+      heartSrc: '',
       heartCount: 0, // 彩蛋
       allCities: config.allCities || [],
       cityId: '',
@@ -128,6 +128,14 @@ export default {
         show = false
       }
       return show
+    }
+  },
+  onShow () {
+    let favoriateCity = wx.getStorageSync('favoriate_city')
+    if (favoriateCity && favoriateCity.id == this.cityId) {
+      this.heartSrc = heartActiveIcon
+    } else {
+      this.heartSrc = heartIcon
     }
   },
   // 获取url中的query对象，包含城市id及name
@@ -173,7 +181,6 @@ export default {
       } else {
         // src = config.link.JsDelivr + 'metro_net/China/' + city.metro_pic
         src = config.link.MetroMan + 'metro/' + city.metroman_pic
-        console.log('city :>> ', city);
       }
       this.HDMetroImg = this.LDMetroImg = src
     } else {
@@ -201,9 +208,16 @@ export default {
     },
     toggleLikeCity() {
       this.heartSrc = (this.heartSrc == heartIcon) ? heartActiveIcon : heartIcon
+      if (this.heartSrc == heartActiveIcon) {
+        wx.setStorageSync('favoriate_city', this.cityInstance)
+        wx.showToast({title: '已设置为偏好城市', icon: 'none', mask: true})
+      } else {
+        wx.setStorageSync('favoriate_city', {})
+        wx.showToast({title: '已取消偏好城市', icon: 'none', mask: true})
+      }
       // 彩蛋
       this.heartCount++
-      if (this.heartCount >= 7) {
+      if (this.heartCount >= 20) {
         this.heartCount = 0
         // 手机振动
         wx.vibrateLong()

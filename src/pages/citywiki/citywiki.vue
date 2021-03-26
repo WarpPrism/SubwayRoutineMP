@@ -4,13 +4,16 @@
 .page-container { height: auto; padding: 20rpx 20rpx; background:#eee; overflow-x: scroll; overflow-y: scroll; -webkit-overflow-scrolling: touch;
   .page-title { height: 150rpx; padding-top: 20rpx; font-weight: bold; font-size: 46rpx; margin-bottom: 0rpx; padding-left: 2.5%; background: @wx-yellow; color: #fefefe; position: relative;
     .en { font-weight: normal; font-size: 28rpx; }
-    .float-btn { width: 150rpx; height: 52rpx; line-height: 50rpx; text-align: center; position: absolute; top: 20rpx; right: 20rpx; font-weight: normal; font-size: 28rpx; background: rgba(0, 0, 0, .5); font-size: 26rpx; color: #fff; border-radius: 0; }
+    .float-btn { width: 150rpx; height: 52rpx; line-height: 50rpx; text-align: center; position: absolute; top: 20rpx; right: 20rpx; font-weight: normal; font-size: 28rpx; background: rgba(0, 0, 0, .5); font-size: 26rpx; color: #fff; border-radius: 0; background: @wx-blue-L; }
     .share-btn { top: 82rpx; }
   }
-  .wiki-read-tip { margin: 10rpx auto; font-size: 28rpx; color: @wx-blue-L; }
+  .wiki-read-tip { margin: 0 auto 10rpx; padding: 5px 10px; font-size: 26rpx; background: #ccc; color: #fff; 
+    .link { margin: 0 10rpx; letter-spacing: 5rpx; text-decoration: underline; color: @wx-blue-L; }
+    .link-active { opacity: 0.7; }
+  }
   .wiki-content { display: block; width: 100%; height: auto; margin-top: 0rpx; margin-bottom: 30rpx; overflow: scroll; }
 
-  .scroll-to-top { height: 90rpx; width: 90rpx; position: fixed; bottom: 50rpx; right: 30rpx; background: rgba(0,0,0,.5);  border-radius: 50%;
+  .scroll-to-top { height: 90rpx; width: 90rpx; position: fixed; bottom: 70rpx; right: 30rpx; background: rgba(0,0,0,.5);  border-radius: 50%;
     img { display: block; width: 60%; height: 60%; margin: 20rpx auto 0; }
   }
 }
@@ -19,13 +22,22 @@
 <template>
   <div class="page-container page-city-detail" v-show="wikiDataStatus == 'SUCCESS'" >
     <div class="page-title">
-      <p>{{ cityInstance.name_zh }}旅游攻略</p>
+      <p>欢迎来到{{ cityInstance.name_zh }}</p>
       <p class="en">Welcome to {{ cityInstance.name_en }}</p>
       <button class="float-btn change-city-btn" @tap="goBackHome">切换城市</button>
       <button class="float-btn share-btn" open-type="share">分享好友</button>
     </div>
-
-    <p class="wiki-read-tip">以下内容来自维基导游 (https://zh.wikivoyage.org) ，仅供查阅参考</p>
+    <div class="wiki-read-tip">
+      <div>以下内容来自维基导游 (https://zh.wikivoyage.org) ，仅供查阅参考，使用者应自行判断做决定。</div>
+      <div>您可<text class="link" hover-class="link-active" @tap.stop="viewMoreWikiData()">点此查看</text>维基百科上的相关条目，获取更多信息。</div>
+    </div>
+    <div
+      v-show="showTaiwanTip"
+      class="wiki-read-tip"
+      style="color: #cc0000;"
+    >
+      港澳台属于中华人民共和国不可分割的一部分，以下维基信息可能包含明显误导信息，请注意辨别。
+    </div>
 
     <rich-text class="wiki-content" v-html="cityWikiHtml"></rich-text>
 
@@ -62,15 +74,23 @@ export default {
           instance = c
         }
       })
+      console.log('instance :>> ', instance);
       return instance
+    },
+    showTaiwanTip() {
+      return this.cityInstance.keywords.indexOf('台湾') > -1
     }
   },
 
   onShareAppMessage (options) {
-    var that = this
+    let that = this
+    let title = `我在探索${that.cityName}，正等你来~`
+    if (Math.random() <= 0.5) {
+      title = `我发现了${that.cityName}旅游攻略，一起来看`
+    }
     return {
-      title: `我在探索${this.cityName}，正等你来~`,
-      path: `pages/citywiki/main?id=${this.cityId}&name=${this.cityName}`
+      title: title,
+      path: `pages/citywiki/main?id=${that.cityId}&name=${that.cityName}`
     }
   },
   // 获取url中的query对象，包含城市id及name
@@ -178,6 +198,25 @@ export default {
         })
       }
     },
+
+    viewMoreWikiData() {
+      // 跳转到中文维基小程序（深度计算出品）
+      let city = this.cityInstance
+      let wikiName = city.name_zh
+      let specialCityArr = ['台北', '台中', '高雄', '香港', '澳门']
+      if (!city.isForeignCity && !specialCityArr.includes(city.name_zh)) {
+        wikiName = wikiName + '市'
+      }
+      console.log('wikiName :>> ', wikiName);
+      wx.navigateToMiniProgram({
+        appId: 'wxc5272efe47e0d943',
+        path: `pages/wiki/wiki?titleUri=${encodeURIComponent(wikiName)}`,
+        envVersion: 'release',
+        success(res) {
+          console.log('navigateToMiniProgram :>> ', res);
+        }
+      })
+    }
   },
   watch: {},
   components: {}
