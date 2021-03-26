@@ -147,7 +147,7 @@
   },
   "苏州": {
     "metro_pic": "suzhou.jpg",
-    "metroman_pic": "routemap_sz_cn.png",
+    "metroman_pic": "routemap_su_cn.png",
     "city_pic": ""
   },
   "天津": {
@@ -197,7 +197,7 @@
   },
   "香港": {
     "metro_pic": "xianggang.jpg",
-    "metroman_pic": "routemap_xg_cn.png",
+    "metroman_pic": "routemap_hk_cn.png",
     "city_pic": ""
   },
   "郑州": {
