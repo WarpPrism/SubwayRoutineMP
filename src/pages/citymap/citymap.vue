@@ -86,6 +86,9 @@ export default {
     }
   },
   mounted() {
+    wx.setNavigationBarTitle({
+      title: `${this.cityName}地图`
+    })
     this.mapStatus = 'INIT'
     this.getCityCoordinate()
   },

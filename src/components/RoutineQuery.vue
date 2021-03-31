@@ -188,7 +188,7 @@ export default {
       let toName = this.toValue
       this.init()
       wx.navigateTo({
-        url: `/pages/cityroutine/main?from=${from}&to=${to}&fromName=${fromName}&toName=${toName}`
+        url: `/pages/cityroutine/main?name=${this.cityInstance.name_zh}&from=${from}&to=${to}&fromName=${fromName}&toName=${toName}`
       })
     },
     // 地址坐标解析

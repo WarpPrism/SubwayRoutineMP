@@ -16,7 +16,7 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#eee",
-    "navigationBarTitleText": "自由城市 自由旅行",
+    "navigationBarTitleText": "",
     "navigationBarTextStyle": "black"
   }
 }

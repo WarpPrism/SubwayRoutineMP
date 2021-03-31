@@ -20,7 +20,8 @@
     <div class="menu-container">
       <div class="menu-item" :class="{'active': activeIndex == 0}" hover-class="hover" @tap="goToHome">首页</div>
       <div class="menu-item" :class="{'active': activeIndex == 1}" hover-class="hover" @tap="goToMoreFeature">更多</div>
-      <button class="menu-item" :class="{'active': activeIndex == 2}" hover-class="hover" open-type="share" type="primary">分享</button>
+      <div class="menu-item" :class="{'active': activeIndex == 2}" hover-class="hover" @tap="goToAbout">关于</div>
+      <button class="menu-item" :class="{'active': activeIndex == 3}" hover-class="hover" open-type="share" type="primary">分享</button>
     </div>
   </div>
 </template>
@@ -60,6 +61,12 @@ export default {
       if (this.activeIndex == 1) return
       wx.redirectTo({
         url: '/pages/morefeature/main'
+      })
+    },
+    goToAbout() {
+      if (this.activeIndex == 2) return
+      wx.redirectTo({
+        url: '/pages/userguide/main'
       })
     }
   },

@@ -61,7 +61,7 @@
       </div>
       <div class="right">高清大图</div>
     </div>
-    <!--
+    
     <div class="section-title">为你推荐</div>
     <div class="section recommend-section" @tap="previewRailFanQr">
       <img :src="railFanAvatarSrc" alt="" class="avatar">
@@ -75,7 +75,6 @@
       <div class="op-btn" @tap="previewCsandQr">查看详情</div>
       <div class="desc">1、英语精读&翻译  2、算法，前端开发，前端攻城师进阶之路。</div>
     </div>
-    -->
 
     <div class="section-title">关于</div>
     <div class="section" @tap="readUserGuide">
@@ -137,7 +136,11 @@ export default {
       imageUrl: config.shareImg
     }
   },
-  mounted() {},
+  mounted() {
+    wx.setNavigationBarTitle({
+      title: `更多功能`
+    })
+  },
   // unload时销毁vue数据，因为mpvue中小程序返回时只销毁了Page
   onUnload(){
     this.modalShow = false

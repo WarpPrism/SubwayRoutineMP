@@ -40,10 +40,13 @@ export default {
     cityClickHandler() {
       let city = this.instance
       let type = ''
-      console.log('city :>> ', city);
+      let list = ['旅游指南', '地铁查询']
+      if (!city.isForeignCity) {
+        list.push('城市地图')
+      }
       wx.showActionSheet({
         itemColor: '#000000',
-        itemList: ['旅游指引', '地铁查询'],
+        itemList: list,
         success: (res) => {
           let index = res.tapIndex
           if (index == 0) {
@@ -54,6 +57,10 @@ export default {
             // 导航到地铁图
             type = 'metro'
             this.navigateToCityMetroMap()
+          } else if (index == 2) {
+            // 导航到地铁图
+            type = 'map'
+            this.navigateToCityMap()
           }
         },
         complete: () => {
@@ -76,6 +83,12 @@ export default {
       let city = this.instance
       wx.navigateTo({
         url: `/pages/citydetail/main?id=${city.id}&name=${city.name_zh}`
+      })
+    },
+    navigateToCityMap() {
+      let city = this.instance
+      wx.navigateTo({
+        url: `/pages/citymap/main?id=${city.id}&name=${city.name_zh}`
       })
     },
     // 点击预览

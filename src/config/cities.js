@@ -163,11 +163,11 @@ let cities = [
   {
     id: 5,
     name_zh: '香港',
-    name_en: 'Hong Kong',
+    name_en: 'HongKong',
     subway_img: IMG_BED_BASE + '2019/02/01/5c541675955a0.jpg',
     subway_logo: require('../assets/images/logo/hongkong.png'),
     city_picture: '',
-    keywords: '广东,HongKong,香港'
+    keywords: '广东,HongKong,香港,澳门,hk'
   },
   {
     id: 6,

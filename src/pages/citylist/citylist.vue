@@ -30,7 +30,8 @@
 
   .city-list { width: 100%; text-align: center; }
 
-  .empty-info { width: calc(750rpx - 100rpx); height: 300rpx; line-height: 300rpx; text-align: center; font-size: 32rpx; margin: 20rpx auto; }
+  .search-tip-info { width: calc(750rpx - 100rpx); line-height: 40rpx; margin: 50rpx auto 40rpx; font-size: 32rpx; font-weight: bold; text-align: center; }
+  .empty-info { width: calc(750rpx - 100rpx); height: 500rpx; line-height: 500rpx; margin: 20rpx auto; text-align: center; font-size: 32rpx; font-weight: bold; }
 
   .read-user-guide { width: calc(750rpx - 100rpx); margin: auto; color: @wx-blue; }
 
@@ -54,7 +55,7 @@
       <input
         class="search-input"
         type="text"
-        placeholder="输入您所在的城市，如北京"
+        placeholder="输入您要找的城市，如迪拜"
         maxlength="50"
         :value="searchInputValue"
         @input="handleSearchInput"
@@ -70,6 +71,8 @@
       <div class="tab cn-tab" :class="{'active': activeTab == 'cn'}" v-if="ChinaCities.length > 0" @tap="clickTab('cn')">国内城市</div>
       <div class="tab en-tab" :class="{'active': activeTab == 'en'}" v-if="WorldCities.length > 0" @tap="clickTab('en')">国际城市</div>
     </div>
+    <div class="search-tip-info" v-show="searchInputValue && !searchEmpty">已搜索到临近的城市:</div>
+
     <div class="city-list cn-list" v-show="activeTab=='cn'">
       <CityCard v-for="(city, cindex) in ChinaCities" :key="cindex" :instance="city" />
     </div>
@@ -78,7 +81,7 @@
       <CityCard v-for="(wcity, windex) in WorldCities" :key="windex" :instance="wcity" />
     </div>
 
-    <div class="empty-info" v-if="ChinaCities.length <= 0 && WorldCities.length <= 0 && searchInputValue != ''">暂无您要找的城市{{emoji.thinkingFace}}</div>
+    <div class="empty-info" v-show="searchEmpty">暂无您要找的城市{{emoji.thinkingFace}}</div>
 
     <div class="bottom-section">
       <div class="btns-wrap">
@@ -122,11 +125,18 @@ export default {
       myAddress: ''
     }
   },
-  computed: {},
+  computed: {
+    searchEmpty() {
+      return this.ChinaCities.length <= 0 && this.WorldCities.length <= 0 && this.searchInputValue != ''
+    }
+  },
   onShow() {
     wx.reportAnalytics('showhome', {})
   },
   mounted() {
+    wx.setNavigationBarTitle({
+      title: `自由城市 自由旅行`
+    })
     let fromRemote = true
     this.resetCities()
     // 强制同步远端更新

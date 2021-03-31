@@ -13,7 +13,7 @@
     .float-btn { width: 150rpx; height: 52rpx; line-height: 50rpx; text-align: center; position: absolute; top: 0rpx; right: 10rpx; font-weight: normal; font-size: 28rpx; background: rgba(0, 0, 0, .5); font-size: 26rpx; color: #fff; border-radius: 0; }
     .share-btn { top: 62rpx; }
   }
-  .section-title { margin: 20rpx 0; padding-left: 2.5%; font-weight: bold; font-size: 38rpx; }
+  .section-title { margin: 20rpx 0; padding-left: 2.5%; font-weight: bold; font-size: 36rpx; }
 
   .components-routine-query { margin: 0 0 40rpx; }
 
@@ -156,6 +156,9 @@ export default {
     }
   },
   async mounted() {
+    wx.setNavigationBarTitle({
+      title: `${this.cityName}地铁线路图`
+    })
     // 创建插屏广告实例
     if (wx.createInterstitialAd) {
       this.interstitialAd = wx.createInterstitialAd({

@@ -152,14 +152,18 @@ export default {
   onShareAppMessage (options) {
     var that = this
     return {
-      title: `${this.fromName} —> ${this.toName}`,
+      title: `${this.cityName} : ${this.fromName} —> ${this.toName}`,
       path: `pages/cityroutine/main?from=${this.fromQuery}&to=${this.toQuery}&fromName=${this.fromName}&toName=${this.toName}`
     }
   },
-  mounted() {},
+  mounted() {
+    wx.setNavigationBarTitle({
+      title: `${this.cityName} : ${this.fromName} —> ${this.toName}`
+    })
+  },
   methods: {
     goBackHome() {
-      wx.redirectTo({
+      wx.navigateTo({
         url: "/pages/citylist/main"
       })
     },

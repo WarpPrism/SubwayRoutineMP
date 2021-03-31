@@ -1,6 +1,8 @@
 <style lang="less">
 @import url('../../assets/styles/variable.less');
 
+.view-hover { opacity: 0.8; }
+
 .page-container { height: auto; padding: 20rpx 20rpx; background:#eee; overflow-x: scroll; overflow-y: scroll; -webkit-overflow-scrolling: touch;
   .page-title { height: 150rpx; padding-top: 20rpx; font-weight: bold; font-size: 46rpx; margin-bottom: 0rpx; padding-left: 2.5%; background: @wx-yellow; color: #fefefe; position: relative;
     .en { font-weight: normal; font-size: 28rpx; }
@@ -11,6 +13,7 @@
     .link { margin: 0 10rpx; letter-spacing: 5rpx; text-decoration: underline; color: @wx-blue-L; }
     .link-active { opacity: 0.7; }
   }
+  .clickable-tip { background: @wx-blue-L; color: #fff; }
   .wiki-content { display: block; width: 100%; height: auto; margin-top: 0rpx; margin-bottom: 30rpx; overflow: scroll; }
 
   .scroll-to-top { height: 90rpx; width: 90rpx; position: fixed; bottom: 70rpx; right: 30rpx; background: rgba(0,0,0,.5);  border-radius: 50%;
@@ -24,17 +27,19 @@
     <div class="page-title">
       <p>欢迎来到{{ cityInstance.name_zh }}</p>
       <p class="en">Welcome to {{ cityInstance.name_en }}</p>
-      <button class="float-btn change-city-btn" @tap="goBackHome">切换城市</button>
-      <button class="float-btn share-btn" open-type="share">分享好友</button>
+      <button class="float-btn change-city-btn" hover-class="view-hover" @tap="goBackHome">切换城市</button>
+      <button class="float-btn share-btn" hover-class="view-hover" open-type="share">分享好友</button>
     </div>
     <div class="wiki-read-tip">
       <div>以下内容来自维基导游 (https://zh.wikivoyage.org) ，仅供查阅参考，使用者应自行判断做决定。</div>
-      <div>您可<text class="link" hover-class="link-active" @tap.stop="viewMoreWikiData()">点此查看</text>维基百科上的相关条目，获取更多信息。</div>
+    </div>
+    <div class="wiki-read-tip clickable-tip" hover-class="view-hover">
+      <div @tap.stop="viewMoreWikiData()">您可点此查看维基百科上的相关条目，获取更多信息。</div>
     </div>
     <div
       v-show="showTaiwanTip"
       class="wiki-read-tip"
-      style="color: #cc0000;"
+      style="color: #fff; background: #dd2200;"
     >
       港澳台属于中华人民共和国不可分割的一部分，以下维基信息可能包含明显误导信息，请注意辨别。
     </div>
@@ -43,7 +48,7 @@
 
     <!--<p style="font-size:30rpx; color: #d84e43; margin-bottom: 20rpx;" >如对此词条感兴趣，可前往维基导游(https://zh.wikivoyage.org/{{ cityInstance.name_zh }})进行查看和编辑</p>-->
 
-    <div class="scroll-to-top" @tap="scrollToTop">
+    <div class="scroll-to-top" hover-class="view-hover" @tap="scrollToTop">
       <img :src="scrollToTopIcon" />
     </div>
   </div>
@@ -102,6 +107,9 @@ export default {
   },
 
   mounted() {
+    wx.setNavigationBarTitle({
+      title: `${this.cityName}旅游指南`
+    })
     this.fetchWikiData()
 
     // 创建插屏广告实例
