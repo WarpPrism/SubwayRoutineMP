@@ -149,7 +149,7 @@ let cities = [
     subway_img: IMG_BED_BASE + '2019/02/01/5c54065f25892.jpg',
     subway_logo: require('../assets/images/logo/canton.png'),
     city_picture: '',
-    keywords: '广东,广西,湖南,Canton'
+    keywords: '广东,广西,湖南,Canton,guangzhou'
   },
   {
     id: 4,

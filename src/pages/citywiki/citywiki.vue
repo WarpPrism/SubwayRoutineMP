@@ -91,7 +91,7 @@ export default {
     let that = this
     let title = `我在探索${that.cityName}，正等你来~`
     if (Math.random() <= 0.5) {
-      title = `我发现了${that.cityName}旅游攻略，一起来看`
+      title = `我发现了${that.cityName}旅游指南，一起来看`
     }
     return {
       title: title,

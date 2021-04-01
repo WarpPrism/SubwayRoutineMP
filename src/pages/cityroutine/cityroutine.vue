@@ -2,25 +2,24 @@
 @import url('../../assets/styles/variable.less');
 
 .page-container { height: 100%; margin: 0; padding: 0; background: #eee; overflow-x: hidden; overflow-y: scroll; -webkit-overflow-scrolling: touch; position: relative;
-  #citymap { position: absolute; top: 0; left: 0; z-index: 10;
-    .collapse-btn { display: block; width: 120rpx; height: 60rpx; line-height: 60rpx; position: absolute; left: 50%; transform: translateX(-50%); text-align: center; background: @wx-blue-L; color: #fff; opacity: 0.9; }
-    .route-cover-view { width: 100%; margin: 0; position: absolute; left: 0; bottom: 0; background: rgba(255, 255, 255, .9); overflow: visible;
-      .section { height: 100%; position: absolute; top: 0; }
-      .left-section { width: 20%; left: 0; border-right: solid 1px #ddd;
-        .tab { height: 100rpx; text-align: center; color: @wx-blue-L; }
-        .tab.active { background: @wx-blue-L; color: #eee; }
-        .tab-text { line-height: 100rpx; }
-      }
-      .right-section { width: 80%; right: 0; padding: 30rpx 20rpx; padding-right: 0; overflow: scroll;
-        .content { width: 100%; height: auto; padding: 0;
-          .time-wrap { margin-bottom: 15rpx;
-            .set-out-time { display: inline; font-weight: bold; color: @wx-blue-L; }
-          }
-          .extra-info { color: @wx-red; margin-bottom: 15rpx; }
-          .desc { width: 95%; white-space: normal; word-wrap: break-word; word-break: break-all; margin-bottom: 15rpx; }
-          .option-btn { display: block; width: 180rpx; height: 70rxp; line-height: 70rpx; text-align: center; font-size: 28rpx; margin: 30rpx; margin-left: 0; background: @wx-blue-L; color: #fff; border-radius: 0; float: right; }
-          .home-btn { background: @wx-yellow; }
+  #citymap { position: absolute; top: 0; left: 0; z-index: 10; }
+  .collapse-btn { display: block; width: 160rpx; height: 70rpx; line-height: 70rpx; position: absolute; left: 50%; transform: translateX(-50%); text-align: center; background: @wx-blue-L; color: #fff; opacity: 0.9; z-index: 100; }
+  .route-cover-view { width: 100%; height: 0; margin: 0; position: absolute; left: 0; bottom: 0; background: rgba(255, 255, 255, .9); z-index: 100;
+    .section { height: 100%; position: absolute; top: 0; }
+    .left-section { width: 20%; left: 0; border-right: solid 1px #ddd;
+      .tab { height: 120rpx; text-align: center; color: @wx-blue-L; }
+      .tab.active { background: @wx-blue-L; color: #fff; }
+      .tab-text { line-height: 120rpx; }
+    }
+    .right-section { width: 80%; right: 0; padding: 30rpx 20rpx; padding-right: 0; overflow: scroll;
+      .content { width: 100%; height: auto; padding: 0;
+        .info-section { margin-bottom: 15rpx;
+          .em { display: inline; font-weight: bold; color: @wx-red; }
         }
+        .desc { width: 95%; white-space: normal; word-wrap: break-word; word-break: break-all; margin-bottom: 15rpx; }
+        .tip { margin: 10rpx 0; padding: 5rpx; background: @wx-red; color: #fff; font-size: 28rpx; }
+        .option-btn { display: block; width: 200rpx; height: 70rpx; line-height: 70rpx; text-align: center; font-size: 28rpx; margin: 30rpx; margin-left: 0; background: @wx-blue-L; color: #fff; border-radius: 8rpx; float: right; }
+        .share-btn { background: @wx-yellow-D; }
       }
     }
   }
@@ -42,29 +41,34 @@
       show-compass
       enable-rotate
       style="width: 100%; height: 100%;"
-    >
-      <cover-view class="collapse-btn" @tap="toggleCollapse" :style="collapseBtnStyle">{{collapseBtnText}}</cover-view>
-      <cover-view class="route-cover-view" :style="{ height: mapCoverViewHeight }">
-        <cover-view class="left-section section">
-          <cover-view v-for="(route, index) in routes" :key="index" class="tab" :class="{'active': index == currentRouteIndex}" @tap="changeRoute(index)">
-            <cover-view v-if="index == 0" style="font-weight: bold;" class="tab-text">推荐路线</cover-view>
-            <cover-view v-if="index != 0" class="tab-text">路线 {{ index + 1 }}</cover-view>
-          </cover-view>
-        </cover-view>
-        <cover-view class="right-section section">
-          <cover-view v-for="(route, contentIndex) in routes" :key="contentIndex" class="content" v-show="contentIndex == currentRouteIndex">
-            <cover-view class="time-wrap">
-              查询时间 <cover-view class="set-out-time">{{ route.setOutTime }}</cover-view>
-            </cover-view>
-            <cover-view class="extra-info">{{ route.distance }} {{ route.duration }}</cover-view>
-            <cover-view class="desc" v-for="(desc, descIndex) in route.desc" :key="descIndex">{{ desc }}</cover-view>
+    ></map>
+
+    <view v-if="routes && routes.length" class="collapse-btn" @tap="toggleCollapse" :style="collapseBtnStyle">{{collapseBtnText}}</view>
+    <view class="route-cover-view" :style="{ height: mapCoverViewHeight }">
+      <view class="left-section section">
+        <view v-for="(route, index) in routes" :key="index" class="tab" :class="{'active': index == currentRouteIndex}" @tap="changeRoute(index)">
+          <view v-if="index == 0" style="font-weight: bold;" class="tab-text">推荐路线</view>
+          <view v-if="index != 0" class="tab-text">路线 {{ index + 1 }}</view>
+        </view>
+      </view>
+      <view class="right-section section">
+        <view v-for="(route, contentIndex) in routes" :key="contentIndex" class="content" v-show="contentIndex == currentRouteIndex">
+          <view class="info-section">
+            查询时间 <view class="em">{{ route.setOutTime }}</view>
+          </view>
+          <view class="info-section">
+            预计耗时 <view class="em">{{ route.duration }} {{ route.distance }}</view>
+          </view>
+          <view class="tip desc">请留意公共交通运营时间，以免错过末班车</view>
+          <view class="desc" v-for="(desc, descIndex) in route.desc" :key="descIndex">{{ desc }}</view>
+          <div class="btns-wrap clearfix">
             <button class="option-btn home-btn" size="mini" @click="goBackHome">切换城市</button>
-            <button class="option-btn" open-type="share" size="mini">分享路线</button>
-            <cover-view style="height: 30rpx;"></cover-view>
-          </cover-view>
-        </cover-view>
-      </cover-view>
-    </map>
+            <button class="option-btn share-btn" open-type="share" size="mini">分享路线</button>
+          </div>
+          <view style="height: 50rpx;"></view>
+        </view>
+      </view>
+    </view>
   </div>
 </template>
 
@@ -91,7 +95,7 @@ export default {
       polyline: [],
       routes: [],
       currentRouteIndex: 0,
-      collapse: false,
+      collapse: true,
       mapStatus: 'INIT'
     }
   },
@@ -117,14 +121,14 @@ export default {
         return '0rpx'
       } else {
         let len = this.routes.length
-        return len >= 5 ? len * 100 + 'rpx' : '520rpx'
+        return (len <= 2 & len > 0) ? (len + 2) * 120 + 'rpx' : len * 120 + 'rpx'
       }
     },
     collapseBtnText() {
-      return this.collapse ? '展开' : '收起'
+      return this.collapse ? '展开详情' : '收起详情'
     },
     collapseBtnStyle() {
-      return `bottom: ${this.mapCoverViewHeight};`
+      return `bottom: ${this.mapCoverViewHeight}; margin-bottom: 10rpx;`
     }
   },
   // 获取url中的query对象，包含城市id及name
@@ -220,8 +224,8 @@ export default {
           id: 0,
           latitude: startPoint.latitude,
           longitude: startPoint.longitude,
-          width: 28,
-          height: 28,
+          width: 32,
+          height: 32,
           zIndex: -1,
           anchor: {x: 0.5, y: 1}
         },
@@ -230,8 +234,8 @@ export default {
           id: 1,
           latitude: endPoint.latitude,
           longitude: endPoint.longitude,
-          width: 28,
-          height: 28,
+          width: 32,
+          height: 32,
           zIndex: -1,
           anchor: {x: 0.5, y: 1}
         }
@@ -309,12 +313,16 @@ export default {
           this.routes = this.routes.splice(0, 5)
           this.currentRouteIndex = 0
           this.mapStatus = 'SUCCESS'
-          wx.hideLoading()
-          console.log('parsed routes', this.routes)
+          console.log('解析后的路线规划', this.routes)
+          setTimeout(() => {
+            this.collapse = false
+            wx.hideLoading()
+          }, 500)
         },
         fail: (error) => {
+          wx.hideLoading()
           wx.showToast({
-            title: '网络不稳定，请稍后再试',
+            title: '路线规划出错，请稍后再试',
             icon: 'none'
           })
           console.error(error);

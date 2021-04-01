@@ -75,7 +75,7 @@
     </div>
 
     <div class="btn-group">
-      <button class="btn travel-btn" type="primary" @tap="exploreCity">{{ cityInstance.name_zh }}旅游攻略</button>
+      <button class="btn travel-btn" type="primary" @tap="exploreCity">{{ cityInstance.name_zh }}旅游指南</button>
       <button v-if="!cityInstance.isForeignCity" class="btn map-btn" type="primary" @tap="goToCityMap">查看城市地图</button>
     </div>
 

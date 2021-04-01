@@ -10,11 +10,11 @@
   }
   .section-title { width: 100%; padding: 15rpx 30rpx; margin-top: 0rpx; color: #666; font-size: 28rpx; }
   .section { width: 100%; padding: 20rpx 30rpx; background: #fff; border-bottom: solid 1px #eee; position: relative;
-    .left { display: inline-block; width: 50%; text-align: left; 
+    .left { display: inline-block; width: 60%; text-align: left; 
       .icon { display: inline-block; width: 50rpx; height: 50rpx; vertical-align: middle; }
       .text { vertical-align: middle; margin-left: 10rpx; }
     }
-    .right { display: inline-block; width: 50%; text-align: right; color: #666; font-size: 28rpx; }
+    .right { display: inline-block; width: 40%; text-align: right; color: #666; font-size: 28rpx; }
     &:active { background: #dfdfdf; }
   }
   .recommend-section { position: relative;
@@ -61,7 +61,8 @@
       </div>
       <div class="right">高清大图</div>
     </div>
-    
+
+    <!--
     <div class="section-title">为你推荐</div>
     <div class="section recommend-section" @tap="previewRailFanQr">
       <img :src="railFanAvatarSrc" alt="" class="avatar">
@@ -75,6 +76,7 @@
       <div class="op-btn" @tap="previewCsandQr">查看详情</div>
       <div class="desc">1、英语精读&翻译  2、算法，前端开发，前端攻城师进阶之路。</div>
     </div>
+    -->
 
     <div class="section-title">关于</div>
     <div class="section" @tap="readUserGuide">
