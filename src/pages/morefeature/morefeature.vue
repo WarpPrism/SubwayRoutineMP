@@ -1,6 +1,6 @@
 <style lang="less">
 @import url('../../assets/styles/variable.less');
-.more-feature-container { padding: 10rpx 0 50rpx 0; background: #eee; position: relative;
+.more-feature-container { padding: 0 0 50rpx 0; background: #eee; position: relative;
   .em { color: @wx-blue; font-weight: bold; }
   .mask { width: 100%; height: 100%; position: absolute; top: 0; left: 0; background: rgba(0, 0, 0, .5); z-index: 200; 
     .modal { width: 560rpx; position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%); padding: 30rpx 25rpx 60rpx; background: #fff; border-radius: 10rpx; line-height: 50rpx; }
@@ -133,9 +133,9 @@ export default {
   onShareAppMessage (options) {
     var that = this
     return {
-      title: config.shareTitle || '',
+      title: config.share.defaultTitle || '',
       path: 'pages/citylist/main',
-      imageUrl: config.shareImg
+      imageUrl: config.share.defaultPic
     }
   },
   mounted() {

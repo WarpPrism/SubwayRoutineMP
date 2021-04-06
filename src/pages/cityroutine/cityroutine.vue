@@ -157,7 +157,7 @@ export default {
     var that = this
     return {
       title: `${this.cityName} : ${this.fromName} —> ${this.toName}`,
-      path: `pages/cityroutine/main?from=${this.fromQuery}&to=${this.toQuery}&fromName=${this.fromName}&toName=${this.toName}`
+      path: `pages/cityroutine/main?name=${this.cityName}&from=${this.fromQuery}&to=${this.toQuery}&fromName=${this.fromName}&toName=${this.toName}`
     }
   },
   mounted() {

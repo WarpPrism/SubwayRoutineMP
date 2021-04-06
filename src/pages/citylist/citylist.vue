@@ -109,13 +109,13 @@ import remoteConfigMixin from '@/mixins/remoteConfigMixin'
 export default {
   name: 'CityList',
   props: [],
-  mixins: [remoteConfigMixin],
+  mixins: [ remoteConfigMixin ],
   data() {
     return {
       // bannerUrl: require('../../assets/images/banner.jpg'),
       locationIcon: require('../../assets/images/location.png'),
-      moreIcon: require('../../assets/images/more.png'),
-      preloadSrc: '',
+      // moreIcon: require('../../assets/images/more.png'),
+      pageInited: false,
       emoji: config.emoji,
       allCities: config.allCities || [],
       ChinaCities: [],
@@ -134,20 +134,23 @@ export default {
     wx.reportAnalytics('showhome', {})
   },
   mounted() {
-    wx.setNavigationBarTitle({
-      title: `自由城市 自由旅行`
-    })
-    let fromRemote = true
-    this.resetCities()
-    // 强制同步远端更新
-    this.getCityConfig(fromRemote)
+    if (!this.pageInited) {
+      wx.setNavigationBarTitle({
+        title: `自由城市 自由旅行`
+      })
+      let fromRemote = true
+      this.resetCities()
+      // 强制同步远端更新
+      this.getCityConfig(fromRemote)
+      this.pageInited = true
+    }
   },
   onShareAppMessage (options) {
     var that = this
     return {
-      title: config.shareTitle || '',
+      title: config.share.defaultTitle || '',
       path: 'pages/citylist/main',
-      imageUrl: config.shareImg
+      imageUrl: ''
     }
   },
   methods: {

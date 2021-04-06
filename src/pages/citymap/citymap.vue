@@ -80,9 +80,9 @@ export default {
   onShareAppMessage (options) {
     var that = this
     return {
-      title: config.shareTitle,
-      path: `pages/citylist/main`,
-      imageUrl: config.shareImg
+      title: `${this.cityName}地图，请查收~`,
+      path: `/pages/citymap/main?id=${this.cityId}&name=${this.cityName}`,
+      imageUrl: ''
     }
   },
   mounted() {

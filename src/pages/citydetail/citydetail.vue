@@ -152,7 +152,7 @@ export default {
     return {
       title: `${this.cityName}高清地铁线路图`,
       path: `pages/citydetail/main?id=${this.cityId}&name=${this.cityName}`,
-      imageUrl: this.HDMetroImg || config.shareImg
+      imageUrl: this.HDMetroImg || config.share.defaultPic
     }
   },
   async mounted() {

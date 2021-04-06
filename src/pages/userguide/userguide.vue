@@ -43,7 +43,6 @@
 import config from '@/config'
 import AppMenuBar from '@/components/AppMenuBar'
 
-
 export default {
   name: '',
   props: [],
@@ -60,9 +59,9 @@ export default {
   onShareAppMessage (options) {
     var that = this
     return {
-      title: config.shareTitle || '',
+      title: config.share.defaultTitle || '',
       path: 'pages/citylist/main',
-      imageUrl: config.shareImg
+      imageUrl: config.share.defaultPic
     }
   },
   methods: {},
