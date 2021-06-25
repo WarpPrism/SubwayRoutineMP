@@ -34,12 +34,7 @@ cities.forEach((cityName, index) => {
   let reqUrl = WikivoyageContentUrl + encodeURIComponent(cityName)
   // console.log(reqUrl)
   let dir0 = path.resolve(__dirname, `../static/data/wiki_original/${cityName}.html`)
-  let dir1 = path.resolve(__dirname, `../static/data/wiki/${cityName}.html`)
-  if (fsExistsSync(dir0)) {
-    done++
-    console.log(`${cityName} 成功，进度 ${done}/${total}`)
-    return
-  }
+  let dir1 = path.resolve(__dirname, `../static/data/wiki1/${cityName}.html`)
   console.log(`${index + 1} ${cityName} 开始请求wiki旅游数据...`)
   axios.get(reqUrl, {
     timeout: 300e3
