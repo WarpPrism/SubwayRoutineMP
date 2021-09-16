@@ -29,15 +29,13 @@
   // }
   
 
-  .btn-group { width: 100%; margin: 0 0 15rpx;
+  .btn-group { width: 100%; margin: 0 0 20rpx;
     .btn { display: inline-block; width: 45%; margin: 0 2.5%; background: @wx-blue; font-size: 16px; line-height: 75rpx; }
     .preview-btn { background: @wx-blue-L; }
     .share-btn { background: @wx-blue-L; }
     .travel-btn { background: @wx-yellow-D; }
     .map-btn { background: @wx-yellow-D; }
   }
-  .explore-btn { width: 95%; margin: 0 auto 20rpx; line-height: 75rpx;  background-image: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%); background: @wx-red; color: #fff; text-align: center;  }
-  .banner-ad { margin: 0 auto 20rpx; }
 }
 </style>
 
@@ -69,6 +67,9 @@
         <img :src="cityInstance.subway_img" :alt="cityInstance.name_zh" class="metro-img" mode="widthFix" @load="handleMetroImgLoad" @error="handleMetroImgError">
       </movable-view>
     </movable-area> -->
+
+    <ad unit-id="adunit-f49055bf9e2dcbe6" style="margin: 0 auto 30rpx;" />
+
     <div class="btn-group">
       <button class="btn preview-btn" type="primary" @tap="previewMetroNet">查看高清大图</button>
       <button class="btn share-btn" open-type="share" type="primary">分享给好友</button>
@@ -79,7 +80,6 @@
       <button v-if="!cityInstance.isForeignCity" class="btn map-btn" type="primary" @tap="goToCityMap">查看城市地图</button>
     </div>
 
-    <ad class="banner-ad" unit-id="adunit-f49055bf9e2dcbe6" />
   </div>
 </template>
 
@@ -160,18 +160,6 @@ export default {
     wx.setNavigationBarTitle({
       title: `${this.cityName}地铁线路图`
     })
-    // 创建插屏广告实例
-    if (wx.createInterstitialAd) {
-      this.interstitialAd = wx.createInterstitialAd({
-        adUnitId: 'adunit-4617e5a38b3e945d'
-      })
-    }
-    // 在适合的场景显示插屏广告
-    if (this.interstitialAd) {
-      this.interstitialAd.show().catch((err) => {
-        console.error(err)
-      })
-    }
 
     wx.showLoading({
       title: '图片加载中'

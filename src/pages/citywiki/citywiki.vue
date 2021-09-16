@@ -111,19 +111,6 @@ export default {
       title: `${this.cityName}旅游指南`
     })
     this.fetchWikiData()
-
-    // 创建插屏广告实例
-    if (wx.createInterstitialAd) {
-      this.interstitialAd = wx.createInterstitialAd({
-        adUnitId: 'adunit-4617e5a38b3e945d'
-      })
-    }
-    // 在适合的场景显示插屏广告
-    if (this.interstitialAd) {
-      this.interstitialAd.show().catch((err) => {
-        console.error(err)
-      })
-    }
   },
   methods: {
     goBackHome() {
