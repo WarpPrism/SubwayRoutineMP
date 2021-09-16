@@ -24,7 +24,7 @@
 }
     .tab.active { color: #fefefe; background-image: linear-gradient(120deg, #89d7fe 0%, #66a6ff 100%); }
 
-    .tab.cn-tab.active { background: @wx-yellow; }
+    .tab.cn-tab.active { background: @wx-yellow-D; }
     .tab.en-tab.active { background: @wx-blue-L; }
   }
 
@@ -36,11 +36,11 @@
   .read-user-guide { width: calc(750rpx - 100rpx); margin: auto; color: @wx-blue; }
 
   .btns-wrap { display: block; }
-  .bottom-btn { display: inline-block; width: 280rpx; margin: 25rpx 42.5rpx; background: @wx-blue-L; text-shadow: 1px 1px 10rpx #ccc; }
+  .bottom-btn { display: inline-block; width: 280rpx; margin: 25rpx 42.5rpx; background: @wx-blue-L; }
   .button-hover[type=primary] {
     opacity: 0.85;
   }
-  .star-btn { background: @wx-yellow; }
+  .star-btn { background: @wx-yellow-D; }
 }
 </style>
 
@@ -71,7 +71,7 @@
       <div class="tab cn-tab" :class="{'active': activeTab == 'cn'}" v-if="ChinaCities.length > 0" @tap="clickTab('cn')">国内城市</div>
       <div class="tab en-tab" :class="{'active': activeTab == 'en'}" v-if="WorldCities.length > 0" @tap="clickTab('en')">国际城市</div>
     </div>
-    <div class="search-tip-info" v-show="searchInputValue && !searchEmpty">已搜索到临近的城市:</div>
+    <div class="search-tip-info" v-show="searchInputValue && !searchEmpty">已为您找到相关城市:</div>
 
     <div class="city-list cn-list" v-show="activeTab=='cn'">
       <CityCard v-for="(city, cindex) in ChinaCities" :key="cindex" :instance="city" />
@@ -132,12 +132,12 @@ export default {
   },
   onShow() {
     wx.reportAnalytics('showhome', {})
+    wx.setNavigationBarTitle({
+      title: `自由城市 自由旅行`
+    })
   },
   mounted() {
     if (!this.pageInited) {
-      wx.setNavigationBarTitle({
-        title: `自由城市 自由旅行`
-      })
       let fromRemote = true
       this.resetCities()
       // 强制同步远端更新

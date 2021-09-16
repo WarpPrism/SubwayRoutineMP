@@ -22,6 +22,8 @@
 </template>
 
 <script>
+import commonMixin from '@/mixins/commonMixin'
+
 export default {
   name: 'CityCard',
   props: {
@@ -30,7 +32,7 @@ export default {
       default: {}
     }
   },
-  mixins: [],
+  mixins: [ commonMixin ],
   data() {
     return {}
   },
@@ -40,7 +42,7 @@ export default {
     cityClickHandler() {
       let city = this.instance
       let type = ''
-      let list = ['旅游指南', '地铁查询']
+      let list = ['地铁查询', '旅游指南']
       if (!city.isForeignCity) {
         list.push('城市地图')
       }
@@ -50,15 +52,15 @@ export default {
         success: (res) => {
           let index = res.tapIndex
           if (index == 0) {
-            // 导航到城市旅游指南
-            type = 'travel'
-            this.navigateToCityTraveGuide()
-          } else if (index == 1) {
             // 导航到地铁图
             type = 'metro'
             this.navigateToCityMetroMap()
+          } else if (index == 1) {
+            // 导航到城市旅游指南
+            type = 'travel'
+            this.navigateToCityTraveGuide()
           } else if (index == 2) {
-            // 导航到地铁图
+            // 导航到地图
             type = 'map'
             this.navigateToCityMap()
           }
@@ -75,9 +77,7 @@ export default {
     },
     navigateToCityTraveGuide() {
       let city = this.instance
-      wx.navigateTo({
-        url: `/pages/citywiki/main?id=${city.id}&name=${city.name_zh}`
-      })
+      this.viewCityWikipedia(city)
     },
     navigateToCityMetroMap() {
       let city = this.instance

@@ -4,11 +4,6 @@
 .page-container { padding: 0; background: #eee; overflow-x: hidden; overflow-y: scroll; -webkit-overflow-scrolling: touch; position: relative;
   #citymap { position: absolute; top: 0; left: 0; z-index: 10;
     .map-cover-view { width: 65%; height: 75rpx; margin: 0 auto 20rpx; position: absolute; bottom: 30rpx; left: 50%; transform: translateX(-50%); z-index: 100;
-      .explore-btn { line-height: 75rpx; background: rgba(216, 78, 67, .5); color: #fff; text-align: center;  }
-      .button-hover[type=primary] {
-        opacity: 1;
-        background: rgba(216, 78, 67, .6);
-      }
     }
   }
 }
@@ -29,9 +24,6 @@
       enable-rotate
       style="width: 100%; height: 100%;"
     >
-      <!--<cover-view class="map-cover-view">
-        <button class="explore-btn" type="primary" @tap="exploreCity">查看旅游攻略</button>
-      </cover-view>-->
     </map>
   </div>
 </template>
@@ -125,11 +117,6 @@ export default {
           this.mapStatus = 'ERROR'
           wx.hideLoading()
         }
-      })
-    },
-    exploreCity() {
-      wx.navigateTo({
-        url: `/pages/citywiki/main?id=${this.cityId}&name=${this.cityName}`
       })
     }
   },

@@ -86,6 +86,7 @@
 <script>
 import config from '@/config'
 import RoutineQuery from '@/components/RoutineQuery'
+import commonMixin from '@/mixins/commonMixin'
 import remoteConfigMixin from '@/mixins/remoteConfigMixin'
 
 const heartIcon = require('../../assets/images/heart.png')
@@ -94,7 +95,7 @@ const heartActiveIcon = require('../../assets/images/heart-active.png')
 export default {
   name: '',
   props: [],
-  mixins: [ remoteConfigMixin ],
+  mixins: [ commonMixin, remoteConfigMixin ],
   data() {
     return {
       heartSrc: '',
@@ -259,9 +260,8 @@ export default {
       })
     },
     exploreCity() {
-      wx.navigateTo({
-        url: `/pages/citywiki/main?id=${this.cityId}&name=${this.cityName}`
-      })
+      let city = this.cityInstance
+      this.viewCityWikipedia(city)
     }
   },
   watch: {},

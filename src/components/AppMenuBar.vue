@@ -6,8 +6,8 @@
   }
   .menu-container { margin: 0 0 0 30rpx; display: flex; flex-direction: row; justify-content: flex-start; align-items: center; 
     .menu-item { width: 100rpx; height: 60rpx; line-height: 60rpx; margin: 0 10rpx; text-align: center; font-size: 32rpx; color: #fff; background: @wx-yellow-D; overflow: visible; border-radius: 10rpx; }
-    .menu-item.active { box-shadow: inset 1px 1px 10px 2px @wx-yellow-D; background: @wx-yellow; }
-    .menu-item.hover { box-shadow: inset 1px 1px 10px 2px @wx-yellow-D; background: @wx-yellow; }
+    .menu-item.active {  color: @wx-yellow-D; background: #f7f7f7;  }
+    .menu-item.hover {  color: @wx-yellow-D; background: #f7f7f7;  }
   }
 }
 </style>

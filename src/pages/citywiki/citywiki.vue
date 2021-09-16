@@ -34,7 +34,7 @@
       <div>以下内容来自维基导游 (https://zh.wikivoyage.org) ，仅供查阅参考，使用者应自行判断做决定。</div>
     </div>
     <div class="wiki-read-tip clickable-tip" hover-class="view-hover">
-      <div @tap.stop="viewMoreWikiData()">您可点此查看维基百科上的相关条目，获取更多信息。</div>
+      <div @tap.stop="">您可点此查看维基百科上的相关条目，获取更多信息。</div>
     </div>
     <div
       v-show="showTaiwanTip"
@@ -56,11 +56,12 @@
 
 <script>
 import config from '@/config'
+import commonMixin from '@/mixins/commonMixin'
 
 export default {
   name: 'CityWiki',
   props: [],
-  mixins: [],
+  mixins: [ commonMixin ],
   data() {
     return {
       scrollToTopIcon: require('../../assets/images/gotop.png'),
@@ -79,7 +80,6 @@ export default {
           instance = c
         }
       })
-      console.log('instance :>> ', instance);
       return instance
     },
     showTaiwanTip() {
@@ -205,25 +205,6 @@ export default {
           content: '当前微信版本过低，无法使用该功能，请升级到最新微信版本后重试。'
         })
       }
-    },
-
-    viewMoreWikiData() {
-      // 跳转到中文维基小程序（深度计算出品）
-      let city = this.cityInstance
-      let wikiName = city.name_zh
-      let specialCityArr = ['台北', '台中', '高雄', '香港', '澳门']
-      if (!city.isForeignCity && !specialCityArr.includes(city.name_zh)) {
-        wikiName = wikiName + '市'
-      }
-      console.log('wikiName :>> ', wikiName);
-      wx.navigateToMiniProgram({
-        appId: 'wxc5272efe47e0d943',
-        path: `pages/wiki/wiki?titleUri=${encodeURIComponent(wikiName)}`,
-        envVersion: 'release',
-        success(res) {
-          console.log('navigateToMiniProgram :>> ', res);
-        }
-      })
     }
   },
   watch: {},
